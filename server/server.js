@@ -10,8 +10,8 @@ function start(publicDir){
     var server = http.createServer(app);
     var io = socket_io.listen(server);
 
-    server.listen(8080, function () {
-        console.log('Server listening at port %d', 8080);
+    server.listen(port, function () {
+        console.log('Server listening at port %d', port);
     });
 
     // Routing
