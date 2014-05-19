@@ -49,10 +49,21 @@ input[type=button]{
 .emptyCard{
     height:12em;
     width:8em;
-    /*background-color:#032533;*/
     border-width:1px;
     border-style: solid;
     border-color:ThreeDDarkShadow;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    padding:3px;
+}
+
+.innerCard {
+    height:100%;
+    background:white;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
 }
 
 .cardNumber {
@@ -95,8 +106,8 @@ input[type=button]{
     margin:0.6em;
 }
 
-.review .hasCard div {
-    background: white;
+.review .hasCard > div {
+    background: red;
 }
 
 .review .hasCard .cardNumber {

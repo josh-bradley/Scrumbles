@@ -77,7 +77,9 @@
         <div id="cardTable" class="col-md-8" data-bind="foreach: players, css: statusClass">
             <div class="cardPlaceHolder" data-bind="css { hasCard : card() }">
                 <div class="emptyCard">
-                    <span class="cardNumber" data-bind="text: card"></span>
+                    <div class="innerCard" data-bind="visible: $parent.isStatusReview">
+                        <span class="cardNumber" data-bind="text: card"></span>
+                    </div>
                 </div>
                 <span class="cardPlayerName" data-bind="text: playerName" ></span>
             </div>
