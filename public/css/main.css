@@ -55,15 +55,14 @@ input[type=button]{
     border-color:ThreeDDarkShadow;
 }
 
-.ingame .hasCard div{
-    background-color:orange;
+.cardNumber {
+    display: none;
+    color: black;
+    font-size: 3em;
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
 }
-
-.cardPlaceHolder{
-    float:left;
-    margin:0.6em;
-}
-
 .cardPlayerName{
     color:#D2E0E6;
     width:8em;
@@ -72,13 +71,28 @@ input[type=button]{
     text-align: center;
 }
 
-.cardNumber {
-    display: none;
-    color: black;
-    font-size: 3em;
-    margin: 0 auto;
-    width: 100%;
-    text-align: center;
+@media (max-width: 520px){
+    .emptyCard{
+        height:6em;
+        width:4em;
+    }
+
+    .cardNumber {
+        font-size: 1.5em;
+     }
+
+    .cardPlayerName{
+        width:4em;
+    }
+}
+
+.ingame .hasCard div{
+    background-color:orange;
+}
+
+.cardPlaceHolder{
+    float:left;
+    margin:0.6em;
 }
 
 .review .hasCard div {
