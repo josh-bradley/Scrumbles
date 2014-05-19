@@ -15,6 +15,10 @@ Scrumbles.page = (function(){
     function startItemEstimate(){
         var socket = Scrumbles.socketManager.getSocket();
         socket.emit('item.startEstimate', { itemName: this.itemName() });
+
+        _.each(this.players(), function(player){
+            player.card(undefined);
+        });
     }
 
     function cardSelected(){
@@ -128,6 +132,11 @@ Scrumbles.page = (function(){
             }
 
         }, true);
+        this.anyCardsDown = ko.computed(function(){
+            return undefined !== _.find(self.players(), function(player){
+                return player.card();
+            });
+        });
     };
 
     var viewModel = new Page();

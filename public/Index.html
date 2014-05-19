@@ -31,7 +31,18 @@
 </div>
 
 <div data-bind="visible: !isStatusInit()" class="container" style="margin-top:50px;display:none">
+    <div class="row" data-bind="visible: !isStatusInit()">
+        <div class="col-md-7 itemTitle">
+            <h2 data-bind="text: roomName"></h2>
+        </div>
+    </div>
+    <div class="row" data-bind="visible: showGameTitle">
+        <div class="col-md-7 itemTitle">
+            Estimating Item: <span data-bind="text: itemName"></span>
+        </div>
+    </div>
 
+    <hr>
     <div class="row" style="display: none" data-bind="visible: shouldShowTaskEntry">
         <div class="col-md-5 col-md-offset-2 col-gut-4">
             <input type="text" id="currentItemName" placeholder="Enter task name..." data-bind="value: itemName">
@@ -42,22 +53,23 @@
     </div>
 
     <div id="cardSelection">
-        <div class="row" id="currentItemTitle" data-bind="visible: showGameTitle">
-            <div class="col-md-7 col-md-offset-2 itemTitle">
-                Item: <span data-bind="text: itemName"></span>
-            </div>
-        </div>
         <div class="row" data-bind="visible: isStatusInGame">
             <div class="col-md-5 col-md-offset-2">
-                <select id="cardSelector" data-bind="value: selectedCard, event: { change: cardSelected }">
+                <select id="cardSelector" class="fullWidth selectCard" data-bind="value: selectedCard, event: { change: cardSelected }">
                     <option>1/2</option>
                     <option>1</option>
                     <option>2</option>
                     <option>4</option>
+                    <option>8</option>
+                    <option>13</option>
+                    <option>20</option>
+                    <option>40</option>
+                    <option>100</option>
+                    <option>?</option>
                 </select>
             </div>
             <div class="col-md-2">
-                <input type="button" class="fullWidth" id="showCards" value="showCards" data-bind="click: showCards, visible: isOwner" />
+                <input type="button" class="fullWidth" id="showCards" value="showCards" data-bind="click: showCards, visible: isOwner() && anyCardsDown()" />
             </div>
         </div>
     </div>
