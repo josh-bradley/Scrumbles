@@ -43,6 +43,9 @@ function connect(socket) {
         if(wasCreate) {
             socket.on('item.startEstimate', startEstimateHandler);
             socket.on('item.showCards', showCards);
+            socket.on('item.finishReviewRequest', function(){
+               io.sockets.in(socket.scrumbles.room.roomName).emit('item.finishReview')
+            });
         }
 
         socket.on('item.cardSelect', cardSelectHandler);
