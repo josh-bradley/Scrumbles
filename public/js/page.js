@@ -15,10 +15,6 @@ Scrumbles.page = (function(){
     function startItemEstimate(){
         var socket = Scrumbles.socketManager.getSocket();
         socket.emit('item.startEstimate', { itemName: this.itemName() });
-
-        _.each(this.players(), function(player){
-            player.card(undefined);
-        });
     }
 
     function cardSelected(){
@@ -27,10 +23,13 @@ Scrumbles.page = (function(){
     }
 
     function joinRoom(){
+        var that = this;
+        this.loadMessage.message('Joining Room...');
         var cardTable = Scrumbles.cardTable;
         var socket = Scrumbles.socketManager.getSocket();
 
         socket.on('room.joinConfirm', function(data){
+            that.loadMessage.clearMessage();
             cardTable.init(data);
         });
 
@@ -50,6 +49,19 @@ Scrumbles.page = (function(){
         var socket = Scrumbles.socketManager.getSocket();
         socket.emit('item.showCards', {});
     };
+
+    function finishReviewRequest(){
+        var socket = Scrumbles.socketManager.getSocket();
+        socket.emit('item.finishReviewRequest', {});
+    }
+
+    function finishReview(){
+        this.status(pageStatus.WAITING);
+
+        _.each(this.players(), function(player){
+            player.card(undefined);
+        });
+    }
 
     function setPlayersCardValue(playerName, card){
         var player = _.find(this.players(), function(player){
@@ -77,6 +89,17 @@ Scrumbles.page = (function(){
         this.players.push(new Player(player));
     }
 
+    var LoadMessage = function(){
+        var self = this;
+        this.message = ko.observable();
+        this.show = ko.computed(function(){
+            return self.message();
+        }, true);
+        this.clearMessage = function(){
+            self.message(undefined);
+        }
+    }
+
     var Player = function(player){
         this.playerName = ko.observable(player.playerName);
         this.card = ko.observable(player.card);
@@ -85,6 +108,8 @@ Scrumbles.page = (function(){
     var Page = function(){
         var self = this;
 
+        this.cards = ko.observableArray(['1/2', '1', '2', '4', '8', '13', '20', '40', '100', '?']);
+        this.loadMessage = new LoadMessage();
         this.players = ko.observableArray([]);
         this.status = ko.observable(pageStatus.INIT);
         this.playerName = ko.observable();
@@ -117,6 +142,8 @@ Scrumbles.page = (function(){
         this.joinRoom = joinRoom;
         this.keyDownJoinHandler = keyDownJoinHandler;
         this.showCards = showCards;
+        this.finishReview = finishReview;
+        this.finishReviewRequest = finishReviewRequest;
         this.initCardTable = initCardTable;
         this.setPlayersCardValue = setPlayersCardValue;
         this.removePlayer = removePlayer;

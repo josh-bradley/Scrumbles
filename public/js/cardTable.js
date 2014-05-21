@@ -25,6 +25,10 @@ Scrumbles.cardTable = function(){
             viewModel.displayCardFace();
         });
 
+        socket.on('item.finishReview', function(){
+            viewModel.finishReview();
+        });
+
         socket.on('player.leave', function(data){
             viewModel.removePlayer(data.playerName);
         });

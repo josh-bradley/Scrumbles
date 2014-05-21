@@ -33,6 +33,14 @@ input[type=text] {
     padding:0 4px;
 }
 
+.col-gut-4-left {
+    padding-left:4px;
+}
+
+.col-gut-4-right {
+    padding-right:4px;
+}
+
 input[type=button]{
     color:#D2E0E6;
     border:none;
@@ -42,6 +50,7 @@ input[type=button]{
 }
 
 .selectCard{
+    color: black;
     padding:14px 5px;
     margin:5px 0;
 }
@@ -58,7 +67,7 @@ input[type=button]{
     padding:3px;
 }
 
-.innerCard {
+.hasCard .innerCard {
     height:100%;
     background:white;
     -moz-border-radius:5px;
@@ -114,18 +123,30 @@ input[type=button]{
     display: block;
 }
 
+body {
+    color:#D2E0E6;
+}
+
 .itemTitle{
-    color:white;
     font-size:1.3em;
 }
 
+.modal-popup-background {
+    width: 100%;
+    height: 100%;
+    background: black;
+    position: absolute;
+    top: 0;
+    z-index: 999;
+    opacity: 0.6;
+}
 
-#playerList .player{
-    width:100%;
-    height:2em;
-    background-color:#033133;
-    color:#D2E0E6;
-    padding-left:10px;
-    vertical-align: middle;
-    line-height:2em;
-    margin: 2px
+.load-message {
+    color: white;
+    position: absolute;
+    top: 6em;
+    font-size: 3.5em;
+    opacity: 1;
+    width: 100%;
+    text-align: center;
+}
