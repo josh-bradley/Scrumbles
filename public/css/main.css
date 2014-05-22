@@ -33,14 +33,6 @@ input[type=text] {
     padding:0 4px;
 }
 
-.col-gut-4-left {
-    padding-left:4px;
-}
-
-.col-gut-4-right {
-    padding-right:4px;
-}
-
 input[type=button]{
     color:#D2E0E6;
     border:none;
