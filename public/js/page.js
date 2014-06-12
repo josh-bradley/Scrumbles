@@ -13,6 +13,11 @@ Scrumbles.page = (function(){
     }
 
     function startItemEstimate(){
+        if(this.errors().length > 0){
+            this.errors.showAllMessages();
+            return;
+        }
+
         var socket = Scrumbles.socketManager.getSocket();
         socket.emit('item.startEstimate', { itemName: this.itemName() });
     }
@@ -23,6 +28,13 @@ Scrumbles.page = (function(){
     }
 
     function joinRoom(){
+        if(this.errors().length > 0){
+            this.errors.showAllMessages();
+            return;
+        }
+
+        this.itemName.isModified(false);
+
         var that = this;
         this.loadMessage.message('Joining Room...');
         var cardTable = Scrumbles.cardTable;
@@ -57,7 +69,7 @@ Scrumbles.page = (function(){
 
     function finishReview(){
         this.status(pageStatus.WAITING);
-
+        this.itemName('');
         _.each(this.players(), function(player){
             player.card(undefined);
         });
@@ -112,10 +124,6 @@ Scrumbles.page = (function(){
         this.loadMessage = new LoadMessage();
         this.players = ko.observableArray([]);
         this.status = ko.observable(pageStatus.INIT);
-        this.playerName = ko.observable();
-        this.roomName = ko.observable();
-        this.itemName = ko.observable();
-        this.selectedCard = ko.observable();
         this.isStatusInit = ko.computed(function(){
             return self.status() === pageStatus.INIT;
         }, true);
@@ -128,6 +136,14 @@ Scrumbles.page = (function(){
         this.isStatusReview = ko.computed(function(){
             return self.status() === pageStatus.REVIEW;
         }, true);
+        this.playerName = ko.observable().extend({ required:{message:'Name required'} });
+        this.roomName = ko.observable().extend({ required:{message:'Room Name required'} });
+        this.itemName = ko.observable().extend({ required:
+        {
+            message:'Item Name required',
+            onlyIf: function(){ return self.isStatusWaiting(); }
+        } });
+        this.selectedCard = ko.observable();
         this.isOwner = ko.observable(false);
         this.shouldShowTaskEntry = ko.computed(function(){
             return (self.isStatusWaiting() || self.isStatusReview() ) && self.isOwner()
@@ -167,6 +183,7 @@ Scrumbles.page = (function(){
     };
 
     var viewModel = new Page();
+    viewModel.errors = ko.validation.group(viewModel);
 
     return viewModel;
 })();

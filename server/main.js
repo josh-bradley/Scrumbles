@@ -39,12 +39,18 @@ function connect(socket) {
             playerName: data.playerName
         });
 
-        // will only listen to the lead player
+        // will only listen to the host player
         if(wasCreate) {
             socket.on('item.startEstimate', startEstimateHandler);
             socket.on('item.showCards', showCards);
             socket.on('item.finishReviewRequest', function(){
-               io.sockets.in(socket.scrumbles.room.roomName).emit('item.finishReview')
+                io.sockets.in(socket.scrumbles.room.roomName).emit('item.finishReview');
+
+                var room = socket.scrumbles.room;
+                room.status = rooms.roomStatus.WAITING;
+                _.each(room.players, function(player) {
+                    player.card = undefined;
+                });
             });
         }
 

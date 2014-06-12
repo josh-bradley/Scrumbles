@@ -1,5 +1,18 @@
 /*
 070333 030B33 000B19 032533 033133*/
+
+.validationMessage{
+    background-color:red;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    color:white;
+    width:100%;
+    padding:4px;
+    margin-bottom:5px;
+    display: block;
+}
+
 input[type=text] {
     color:#D2E0E6;
     width:100%;
