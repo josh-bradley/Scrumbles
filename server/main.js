@@ -1,4 +1,5 @@
 var rooms = require('./rooms');
+var game = require('./game');
 var _ = require('underscore');
 
 var io;
@@ -33,25 +34,19 @@ function connect(socket) {
     function joinRoomHandler(data) {
         var wasCreate = !rooms.doesRoomExist(data.name);
 
-        rooms.joinRoom(data.name, data.playerName, socket);
+        var room = rooms.joinRoom(data.name, data.playerName, socket);
+
+        if(!room){
+            return;
+        }
 
         socket.broadcast.to(data.name).emit('player.new', {
             playerName: data.playerName
         });
 
-        // will only listen to the host player
+        // only listen to the host player
         if(wasCreate) {
-            socket.on('item.startEstimate', startEstimateHandler);
-            socket.on('item.showCards', showCards);
-            socket.on('item.finishReviewRequest', function(){
-                io.sockets.in(socket.scrumbles.room.roomName).emit('item.finishReview');
-
-                var room = socket.scrumbles.room;
-                room.status = rooms.roomStatus.WAITING;
-                _.each(room.players, function(player) {
-                    player.card = undefined;
-                });
-            });
+            game.listenToGameTransitions(socket);
         }
 
         socket.on('item.cardSelect', cardSelectHandler);

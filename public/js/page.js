@@ -1,189 +1,116 @@
 var Scrumbles = Scrumbles || {};
 Scrumbles.page = (function(){
-    var pageStatus = { INIT:0, WAITING:1, INGAME:2, REVIEW:3 };
+    var pageStatus = Scrumbles.pageStatus;
 
-    function initCardTable(isOwner, status){
-        this.status(status);
-        this.isOwner(isOwner);
-    }
-
-    function startGame(itemName){
-        this.status(pageStatus.INGAME);
-        this.itemName(itemName);
-    }
-
-    function startItemEstimate(){
-        if(this.errors().length > 0){
-            this.errors.showAllMessages();
+    function joinRoomRequest(){
+        this.joinRoomViewModel.playerNameErrorMessage(null);
+        if(!this.joinRoomViewModel.isValid()){
+            this.joinRoomViewModel.errors.showAllMessages();
             return;
         }
 
-        var socket = Scrumbles.socketManager.getSocket();
-        socket.emit('item.startEstimate', { itemName: this.itemName() });
+        this.room.itemName.isModified(false);
+        this.loadMessageViewModel.message('Joining Room...');
+
+        Scrumbles.Service.roomService.joinRoom(this.joinRoomViewModel.roomName(), this.joinRoomViewModel.playerName(), this.joinRoomSuccess, joinRoomFailure);
     }
 
-    function cardSelected(){
-        var socket = Scrumbles.socketManager.getSocket();
-        socket.emit('item.cardSelect', { card: this.selectedCard() });
+    function joinRoomSuccess(data){
+        viewModel.loadMessageViewModel.clearMessage();
+        Scrumbles.socketListener.init();
+        viewModel.room.init(data);
     }
 
-    function joinRoom(){
-        if(this.errors().length > 0){
-            this.errors.showAllMessages();
+    function joinRoomFailure(data){
+        viewModel.loadMessageViewModel.clearMessage();
+        viewModel.joinRoomViewModel.playerNameErrorMessage(data.errorMessage);
+    }
+
+    function initiateItemEstimate(){
+        if(!this.room.isValid()){
+            this.room.errors.showAllMessages();
             return;
         }
 
-        this.itemName.isModified(false);
+        Scrumbles.Service.gameService.initiateItemEstimate(this.room.itemName());
+    }
 
-        var that = this;
-        this.loadMessage.message('Joining Room...');
-        var cardTable = Scrumbles.cardTable;
-        var socket = Scrumbles.socketManager.getSocket();
+    function startItemEstimate(itemName){
+        this.room.status(pageStatus.INGAME);
+        this.room.itemName(itemName);
+    }
 
-        socket.on('room.joinConfirm', function(data){
-            that.loadMessage.clearMessage();
-            cardTable.init(data);
-        });
+    function review(){
+        this.room.status(pageStatus.REVIEW);
+    }
 
-        socket.emit('room.join', {
-            name : this.roomName(),
-            playerName: this.playerName()
+    function endReview(){
+        this.room.status(pageStatus.WAITING);
+        this.room.itemName('');
+        this.room.itemName.isModified(false);
+        _.each(this.room.players(), function(player){
+            player.card(undefined);
         });
     }
 
     function keyDownJoinHandler(e){
         if(e.keyCode == 13) {
-            joinRoom();
+            joinRoomRequest();
         }
-    }
-
-    function showCards(){
-        var socket = Scrumbles.socketManager.getSocket();
-        socket.emit('item.showCards', {});
-    };
-
-    function finishReviewRequest(){
-        var socket = Scrumbles.socketManager.getSocket();
-        socket.emit('item.finishReviewRequest', {});
-    }
-
-    function finishReview(){
-        this.status(pageStatus.WAITING);
-        this.itemName('');
-        _.each(this.players(), function(player){
-            player.card(undefined);
-        });
-    }
-
-    function setPlayersCardValue(playerName, card){
-        var player = _.find(this.players(), function(player){
-           return (player.playerName() === playerName);
-        });
-
-        if(player) {
-            player.card(card);
-        }
-    }
-
-    function removePlayer(playerName){
-        var players = _.filter(this.players(), function(player){
-            return (player.playerName() !== playerName);
-        });
-
-        this.players(players);
-    }
-
-    function displayCardFace(){
-        this.status(pageStatus.REVIEW);
-    }
-
-    function addPlayer(player){
-        this.players.push(new Player(player));
-    }
-
-    var LoadMessage = function(){
-        var self = this;
-        this.message = ko.observable();
-        this.show = ko.computed(function(){
-            return self.message();
-        }, true);
-        this.clearMessage = function(){
-            self.message(undefined);
-        }
-    }
-
-    var Player = function(player){
-        this.playerName = ko.observable(player.playerName);
-        this.card = ko.observable(player.card);
     }
 
     var Page = function(){
         var self = this;
 
         this.cards = ko.observableArray(['1/2', '1', '2', '4', '8', '13', '20', '40', '100', '?']);
-        this.loadMessage = new LoadMessage();
-        this.players = ko.observableArray([]);
-        this.status = ko.observable(pageStatus.INIT);
-        this.isStatusInit = ko.computed(function(){
-            return self.status() === pageStatus.INIT;
-        }, true);
-        this.isStatusWaiting = ko.computed(function(){
-            return self.status() === pageStatus.WAITING;
-        }, true);
-        this.isStatusInGame = ko.computed(function(){
-            return self.status() === pageStatus.INGAME;
-        }, true);
-        this.isStatusReview = ko.computed(function(){
-            return self.status() === pageStatus.REVIEW;
-        }, true);
-        this.playerName = ko.observable().extend({ required:{message:'Name required'} });
-        this.roomName = ko.observable().extend({ required:{message:'Room Name required'} });
-        this.itemName = ko.observable().extend({ required:
-        {
-            message:'Item Name required',
-            onlyIf: function(){ return self.isStatusWaiting(); }
-        } });
+
+        this.joinRoomViewModel = new Scrumbles.joinRoomViewModel();
+        this.room = new Scrumbles.Room();
+
+        this.loadMessageViewModel = new Scrumbles.LoadMessageViewModel();
+
         this.selectedCard = ko.observable();
-        this.isOwner = ko.observable(false);
-        this.shouldShowTaskEntry = ko.computed(function(){
-            return (self.isStatusWaiting() || self.isStatusReview() ) && self.isOwner()
-        }, true);
-        this.showGameTitle = ko.computed(function(){
-            return self.isStatusInGame() || self.isStatusReview();
-        }, true);
-        this.joinRoom = joinRoom;
-        this.startGame = startGame;
+
+        // Status changes
+        this.joinRoomSuccess = joinRoomSuccess;
         this.startItemEstimate = startItemEstimate;
-        this.cardSelected = cardSelected;
-        this.joinRoom = joinRoom;
+        this.review = review;
+        this.endReview = endReview;
+
+        // Handlers
+        this.joinRoomRequest = joinRoomRequest;
+        this.initiateItemEstimate = initiateItemEstimate;
+        this.initiateReview = Scrumbles.Service.gameService.initiateReview;
+        this.initiateEndReview = Scrumbles.Service.gameService.initiateEndReview;
+        this.cardSelected = Scrumbles.Service.gameService.cardSelected;
+
         this.keyDownJoinHandler = keyDownJoinHandler;
-        this.showCards = showCards;
-        this.finishReview = finishReview;
-        this.finishReviewRequest = finishReviewRequest;
-        this.initCardTable = initCardTable;
-        this.setPlayersCardValue = setPlayersCardValue;
-        this.removePlayer = removePlayer;
-        this.displayCardFace = displayCardFace;
-        this.addPlayer = addPlayer;
+
+        this.showGameTitle = ko.computed(function(){
+            return self.room.isStatusInGame() || self.room.isStatusReview();
+        }, true);
+
         this.statusClass = ko.computed(function(){
-            if(self.status() === pageStatus.WAITING){
+            if(self.room.status() === pageStatus.WAITING){
                 return 'waiting';
-            } else if (self.status() === pageStatus.INGAME){
+            } else if (self.room.status() === pageStatus.INGAME){
                 return 'ingame';
-            } else if (self.status() === pageStatus.REVIEW) {
+            } else if (self.room.status() === pageStatus.REVIEW) {
                 return 'review';
             }
 
         }, true);
+
         this.anyCardsDown = ko.computed(function(){
-            return undefined !== _.find(self.players(), function(player){
+            return undefined !== _.find(self.room.players(), function(player){
                 return player.card();
             });
         });
     };
 
     var viewModel = new Page();
-    viewModel.errors = ko.validation.group(viewModel);
+    viewModel.joinRoomViewModel.errors = ko.validation.group(viewModel.joinRoomViewModel);
+    viewModel.room.errors = ko.validation.group(viewModel.room);
 
     return viewModel;
 })();

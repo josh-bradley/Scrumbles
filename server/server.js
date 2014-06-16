@@ -3,6 +3,7 @@ var http = require('http');
 var socket_io = require('socket.io');
 var port = process.env.PORT || 3001;
 var main = require('./main');
+var ioManager = require('./io');
 
 function start(publicDir){
     'use strict';
@@ -17,6 +18,7 @@ function start(publicDir){
     // Routing
     app.use(express.static(publicDir));
 
+    ioManager.init(io);
     main.init(io);
 }
 
