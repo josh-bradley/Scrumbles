@@ -1,5 +1,6 @@
 var rooms = require('./rooms');
 var game = require('./game');
+var roomStatus = require('./roomStatus').roomStatus;
 var _ = require('underscore');
 
 var io;
@@ -11,30 +12,34 @@ exports.init = function(iot){
 function connect(socket) {
     socket.scrumbles = socket.scrumbles || {};
 
-    socket.on('room.create', function(data){
-        if(!rooms.doesRoomExist(data.name)){
-            var room = rooms.joinRoom(data.name, data.playerName, socket);
-
-            socket.join(data.name);
-        }
-
-        socket.emit('room.createRoomResult', {
-            message: "Room already exists"
-        });
-    });
-
     socket.on('room.join', function(joinRoomData) {
         joinRoomHandler(joinRoomData);
     });
 
     socket.on('disconnect', function(){
-        rooms.leaveRoom(socket);
+        leaveRoom();
     });
 
     function joinRoomHandler(data) {
         var wasCreate = !rooms.doesRoomExist(data.name);
+        var roomName= data.name, playerName = data.playerName;
 
-        var room = rooms.joinRoom(data.name, data.playerName, socket);
+        var room = rooms.getRoom(roomName);
+
+        if(room.players[playerName]){
+            socket.emit('room.joinConfirm', { errorMessage:'Player name in use.' });
+            return null;
+        }
+
+        var player = room.addPlayer(playerName, socket);
+
+        socket.join(roomName);
+
+        socket.scrumbles.playerName = playerName;
+        socket.scrumbles.room = room;
+        socket.scrumbles.player = player;
+
+        socket.emit('room.joinConfirm', { playerName: playerName, room: room, wasCreate: wasCreate });
 
         if(!room){
             return;
@@ -52,36 +57,30 @@ function connect(socket) {
         socket.on('item.cardSelect', cardSelectHandler);
     }
 
-    function showCards() {
-        var room = socket.scrumbles.room;
-        if(room.status === rooms.roomStatus.INGAME) {
-            io.sockets.in(room.roomName).emit('item.showCardsNow');
-            room.status = rooms.roomStatus.REVIEW;
-        }
-    }
-
-    function startEstimateHandler(itemData){
-        var room = socket.scrumbles.room;
-        room.itemName = itemData.itemName;
-        room.status = rooms.roomStatus.INGAME;
-
-        _.each(room.players, function(player) {
-           player.card = undefined;
-        });
-
-        io.sockets.in(room.roomName).emit('item.estimateStarted', {
-            itemName: itemData.itemName
-        });
-    }
-
     function cardSelectHandler(cardSelect){
         var room = socket.scrumbles.room;
-        if(room.status === rooms.roomStatus.INGAME){
-            rooms.setPlayerCard(room.roomName, socket.scrumbles.playerName, cardSelect.card);
+        if(room.status === roomStatus.INGAME){
+            room.setPlayerCard(socket.scrumbles.playerName, cardSelect.card);
             io.sockets.in(room.roomName).emit('item.cardSelected', {
                 card: cardSelect.card,
                 playerName: socket.scrumbles.playerName
             });
+        }
+    }
+
+    function leaveRoom() {
+        if(socket.scrumbles.room){
+            var room = socket.scrumbles.room;
+            var player = socket.scrumbles.player;
+
+            room.removePlayer(player.playerName);
+
+            if(room.playerCount === 0) {
+                rooms.closeRoom(room.roomName);
+                return;
+            }
+
+            socket.broadcast.to(room.roomName).emit('player.leave', { playerName: player.playerName, newHostPlayerName: room.hostPlayer.playerName });
         }
     }
 }

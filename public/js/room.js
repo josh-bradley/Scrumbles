@@ -43,6 +43,7 @@ Scrumbles.Room = function(){
         }
 
         self.name(data.room.roomName);
+        self.playerName(data.playerName);
         self.status(data.room.status);
         self.isOwner(data.wasCreate);
     };

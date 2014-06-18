@@ -1,4 +1,4 @@
-var rooms = require('./rooms');
+var roomStatus = require('./roomStatus').roomStatus;
 var _ = require('underscore');
 
 function listenToGameTransitions(socket){
@@ -10,7 +10,7 @@ function listenToGameTransitions(socket){
         io.sockets.in(socket.scrumbles.room.roomName).emit('item.finishReview');
 
         var room = socket.scrumbles.room;
-        room.status = rooms.roomStatus.WAITING;
+        room.status = roomStatus.WAITING;
         _.each(room.players, function(player) {
             if(player){
                 player.card = undefined;
@@ -20,16 +20,16 @@ function listenToGameTransitions(socket){
 
     function showCards() {
         var room = socket.scrumbles.room;
-        if(room.status === rooms.roomStatus.INGAME) {
+        if(room.status === roomStatus.INGAME) {
             io.sockets.in(room.roomName).emit('item.showCardsNow');
-            room.status = rooms.roomStatus.REVIEW;
+            room.status = roomStatus.REVIEW;
         }
     }
 
     function startEstimateHandler(itemData){
         var room = socket.scrumbles.room;
         room.itemName = itemData.itemName;
-        room.status = rooms.roomStatus.INGAME;
+        room.status = roomStatus.INGAME;
 
         _.each(room.players, function(player) {
             if(player){
