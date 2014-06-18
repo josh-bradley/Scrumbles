@@ -21,6 +21,13 @@ function getStartItemHandler(socket){
     return getCallByArgs(socket.on, 'item.startEstimate');
 }
 
+function getCardSelectedHandler(socket){
+    socket = socket || new fakes.SocketMock();
+    joinRoom('test', 'bob', socket);
+
+    return getCallByArgs(socket.on, 'item.cardSelect');
+}
+
 function disconnectSocket(socket){
     socket.on.restore && socket.on.restore();
     var onSpy = sandbox.spy(socket, 'on');
@@ -59,3 +66,4 @@ exports.disconnectSocket = disconnectSocket;
 exports.getShowCardsHandler = getShowCardsHandler;
 exports.getStartItemHandler = getStartItemHandler;
 exports.setSinonSandbox = setSinonSandbox;
+exports.getCardSelectedHandler = getCardSelectedHandler;

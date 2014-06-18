@@ -1,46 +1,74 @@
+var sinon = require('sinon');
+var fakes = require('../../../tests/helpers/serverFakes').mocks;
+var serverCalls = require('../../../tests/helpers/serverCalls');
+var testBase = require('./testBase');
+
+var getCardSelectedHandler = serverCalls.getCardSelectedHandler;
+
 describe('item.cardSelect', function(){
-    /*it('should broadcast item.cardSelected when status INGAME', function(){
-     var handler = getCardSelectHandler();
-     var emitSpy = sandbox.spy();
-     var room = rooms.joinRoom('test', 'bob');
-     room.status = roomStatus.INGAME;
-     sandbox.stub(fakes.ioObjectFake.sockets, 'in').returns( {emit: emitSpy});
+    var underTest = '../../../server/server';
+    var sandbox;
+    var rooms, roomStatus;
 
-     handler({card: 8, roomName:'test', playerName: 'bob'}, room);
+    beforeEach(function(){
+        testBase.beforeEach(underTest);
+        sandbox = sinon.sandbox.create();
+        serverCalls.setSinonSandbox(sandbox);
+        rooms = require('../../../server/rooms');
+        roomStatus = require('../../../server/roomStatus').roomStatus;
+    });
 
-     expect(emitSpy.calledWith('item.cardSelected')).toBe(true);
+    afterEach(function(){
+        sandbox.restore();
+        testBase.afterEach();
+    });
+
+
+    it('should broadcast item.cardSelected when status INGAME', function(){
+        var socket = new fakes.SocketMock();
+        var handler = getCardSelectedHandler(socket);
+        var emitSpy = sandbox.spy();
+        socket.scrumbles.room.status = roomStatus.INGAME;
+        sandbox.stub(fakes.ioObjectFake.sockets, 'in').returns( {emit: emitSpy});
+
+        handler({card: 8, roomName:'test', playerName: 'bob'});
+
+        expect(emitSpy.calledWith('item.cardSelected')).toBe(true);
      });
-
 
      it('should not broadcast item.cardSelected when status is INIT', function(){
-     var handler = getCardSelectHandler();
-     var emitSpy = sandbox.spy();
-     var toSpy = sandbox.stub(fakes.socketFake.broadcast, 'to').returns( {emit: emitSpy});
-     fakes.roomFake.status = 0;
+        var socket = new fakes.SocketMock();
+        var handler = getCardSelectedHandler(socket);
+        var emitSpy = sandbox.spy();
+        var toSpy = sandbox.stub(socket.broadcast, 'to').returns( {emit: emitSpy});
+        socket.scrumbles.room.roomStatus = roomStatus.INIT;
 
-     handler({card: 8});
+        handler({card: 8});
 
-     expect(toSpy.calledWith('test')).toBe(false);
+        expect(toSpy.calledWith('test')).toBe(false);
+     });
+
+     it('should not broadcast item.cardSelected when status is WAITING', function(){
+         var socket = new fakes.SocketMock();
+         var handler = getCardSelectedHandler(socket);
+         var emitSpy = sandbox.spy();
+         var toSpy = sandbox.stub(socket.broadcast, 'to').returns( {emit: emitSpy});
+         socket.scrumbles.room.roomStatus = roomStatus.WAITING;
+
+         handler({card: 8});
+
+         expect(toSpy.calledWith('test')).toBe(false);
      });
 
      it('should not broadcast item.cardSelected when status is REVIEW', function(){
-     var handler = getCardSelectHandler();
-     var emitSpy = sandbox.spy();
-     var toSpy = sandbox.stub(fakes.socketFake.broadcast, 'to').returns( {emit: emitSpy});
-     fakes.roomFake.status = 2;
+         var socket = new fakes.SocketMock();
+         var handler = getCardSelectedHandler(socket);
+         var emitSpy = sandbox.spy();
+         var toSpy = sandbox.stub(socket.broadcast, 'to').returns( {emit: emitSpy});
+         socket.scrumbles.room.roomStatus = roomStatus.REVIEW;
 
-     handler({card: 8});
+         handler({card: 8});
 
-     expect(toSpy.calledWith('test')).toBe(false);
+         expect(toSpy.calledWith('test')).toBe(false);
      });
-
-     it('should not broadcast item.cardSelected when status is REVIEW', function(){
-     var room = rooms.createRoom('test');
-     room.status = roomStatus.REVIEW;
-     var handler = getCardSelectHandler();
-
-     handler({roomName: 'test', playerName:'bob', card: 8}, room);
-
-     expect(room.players.length).toBe(0);
-     });*/
 });

@@ -4,9 +4,6 @@ var serverCalls = require('../../../tests/helpers/serverCalls');
 var testBase = require('./testBase');
 
 var getConnectionHandler = serverCalls.getConnectionHandler;
-var joinRoom = serverCalls.joinRoom;
-var disconnectSocket = serverCalls.disconnectSocket;
-var getStartItemHandler = serverCalls.getStartItemHandler;
 
 describe('server', function(){
     var underTest = '../../../server/server';

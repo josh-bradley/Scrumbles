@@ -33,11 +33,12 @@ describe('item.startEstimate', function(){
         expect(spy.calledWith('item.estimateStarted')).toBe(true);
     });
 
-    /*it('should set current task name', function(){
-     var startItemHandler = getStartItemHandler();
+    it('should set current task name', function(){
+        var socket = new fakes.SocketMock();
+        var startItemHandler = getStartItemHandler(socket);
 
-     startItemHandler({itemName: 'stuff'});
+        startItemHandler({itemName: 'stuff'});
 
-     expect(rooms.joinRoom('test', 'pie').itemName).toBe('stuff');
-     });*/
+        expect(socket.scrumbles.room.itemName).toBe('stuff');
+     });
 });
