@@ -19,4 +19,10 @@ function getCallByArgs(spy){
     return null;
 }
 
+(function(){
+    console.log('----------------');
+})();
+
+var exports = exports || sinon;
+
 exports.getCallByArgs = getCallByArgs;

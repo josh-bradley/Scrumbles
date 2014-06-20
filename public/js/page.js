@@ -106,11 +106,12 @@ Scrumbles.page = (function(){
                 return player.card();
             });
         });
+
+        this.joinRoomViewModel.errors = ko.validation.group(this.joinRoomViewModel);
+        this.room.errors = ko.validation.group(this.room);
     };
 
     var viewModel = new Page();
-    viewModel.joinRoomViewModel.errors = ko.validation.group(viewModel.joinRoomViewModel);
-    viewModel.room.errors = ko.validation.group(viewModel.room);
 
     return viewModel;
 })();

@@ -1,4 +1,4 @@
-var Scrumbles = {};
+var Scrumbles = Scrumbles || {};
 Scrumbles.socketManager = (function(){
     var socket;
     function connect() {
