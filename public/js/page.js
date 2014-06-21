@@ -16,14 +16,14 @@ Scrumbles.page = (function(){
     }
 
     function joinRoomSuccess(data){
-        viewModel.loadMessageViewModel.clearMessage();
+        Scrumbles.page.loadMessageViewModel.clearMessage();
         Scrumbles.socketListener.init();
-        viewModel.room.init(data);
+        Scrumbles.page.room.init(data);
     }
 
     function joinRoomFailure(data){
-        viewModel.loadMessageViewModel.clearMessage();
-        viewModel.joinRoomViewModel.playerNameErrorMessage(data.errorMessage);
+        Scrumbles.page.loadMessageViewModel.clearMessage();
+        Scrumbles.page.joinRoomViewModel.playerNameErrorMessage(data.errorMessage);
     }
 
     function initiateItemEstimate(){

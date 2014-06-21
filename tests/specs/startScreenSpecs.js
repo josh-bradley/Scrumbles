@@ -27,7 +27,7 @@ describe('room', function(){
 
     describe('room init', function() {
 
-        it('should attach keydown handler.', function() {
+        /*it('should attach keydown handler.', function() {
             var onSpy = sandbox.spy(page.$joinRoomName, "on");
 
             Scrumbles.startScreen.init();
@@ -41,7 +41,7 @@ describe('room', function(){
             Scrumbles.startScreen.init();
 
             expect(onSpy.calledWith("click", sinon.match.func)).toBe(true);
-        });
+        });*/
 
         it('should attach click handler to startEstimationSession button', function() {
             var onSpy = sandbox.spy(page.$startEstimationSession, "on");

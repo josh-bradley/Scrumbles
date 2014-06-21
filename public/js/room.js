@@ -38,7 +38,6 @@ Scrumbles.Room = function(){
         });
 
         if(data.room.itemName){
-            self.status(pageStatus.INGAME);
             self.itemName(data.room.itemName);
         }
 

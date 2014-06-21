@@ -1,9 +1,11 @@
-describe('join room confirm', function(){
+describe('item.initiateItemEstimate', function(){
     var sandbox;
     var initiateItemEstimate = Scrumbles.helpers.initiateItemEstimate;
 
     beforeEach(function(){
         sandbox = sinon.sandbox.create();
+        Scrumbles.page = new Scrumbles.page.constructor();
+
     });
 
     afterEach(function(){

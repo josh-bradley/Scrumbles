@@ -3,6 +3,8 @@ describe('join room confirm', function(){
 
     beforeEach(function(){
         sandbox = sinon.sandbox.create();
+        Scrumbles.page = new Scrumbles.page.constructor();
+
     });
 
     afterEach(function(){
