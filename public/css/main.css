@@ -104,6 +104,9 @@ input[type=button]{
 }
 
 @media (max-width: 520px){
+    h1{
+        font-size:4em;
+    }
     .emptyCard{
         height:6em;
         width:4em;

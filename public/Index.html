@@ -11,7 +11,7 @@
 <body>
 <h1>Scrumbles</h1>
 <p style='text-align:center;font-family:font-family: "Open Sans", sans-serif;' data-bind="visible: room.isStatusInit">Online scrumb poker</p>
-<div class="container" style="margin-top:50px;" data-bind="visible: room.isStatusInit">
+<div class="container" data-bind="visible: room.isStatusInit">
     <div class="row">
         <div class="col-md-4 col-md-offset-4 col-gut-4">
             <input placeholder="Enter name..."
@@ -40,7 +40,7 @@
     </div>
 </div>
 
-<div data-bind="visible: !room.isStatusInit()" class="container" style="margin-top:50px;display:none">
+<div data-bind="visible: !room.isStatusInit()" class="container" style="display:none">
     <div class="row" data-bind="visible: !room.isStatusInit()">
         <div class="col-md-7 itemTitle">
             <h2 data-bind="text: room.name"></h2>
@@ -48,6 +48,7 @@
     </div>
     <hr>
 
+    <div style="height:13em">
     <div class="row" data-bind="visible: showGameTitle">
         <div class="col-md-2 col-md-offset-3 itemTitle" style="margin-top:0.8em">
             Estimating Item:
@@ -87,6 +88,7 @@
             <input type="button" class="fullWidth" id="showCards" value="Show Cards" data-bind="click: initiateReview, visible: room.isOwner() && anyCardsDown() && room.isStatusInGame()" />
             <input type="button" class="fullWidth" value="Done" data-bind="click: initiateEndReview, visible: room.isOwner() && room.isStatusReview()" />
         </div>
+    </div>
     </div>
     <div class="row" data-bind="visible: !room.isStatusWaiting()">
         <div id="cardTable" class="col-md-8" data-bind="foreach: room.players, css: statusClass">
