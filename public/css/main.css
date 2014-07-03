@@ -6,6 +6,10 @@ h1{
     font-family: 'Rokkitt', serif;
 }
 
+h2{
+    word-wrap:break-word;
+}
+
 .validationMessage{
     background-color:red;
     -moz-border-radius:5px;
@@ -81,26 +85,36 @@ input[type=button]{
 
 .hasCard .innerCard {
     height:100%;
-    background:white;
+    background:orangered;
     -moz-border-radius:5px;
     -webkit-border-radius:5px;
     border-radius:5px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: whitesmoke;
+    line-height:10.5em;
 }
 
 .cardNumber {
-    display: none;
-    color: black;
     font-size: 3em;
     margin: 0 auto;
     width: 100%;
     text-align: center;
+    color: white;
+    font-weight: bold;
+    font-family: sans-serif;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
 }
+
 .cardPlayerName{
     color:#D2E0E6;
     width:8em;
     display: block;
     margin:0 auto;
     text-align: center;
+    word-wrap:break-word;
 }
 
 @media (max-width: 520px){
@@ -119,6 +133,9 @@ input[type=button]{
     .cardPlayerName{
         width:4em;
     }
+    .hasCard .innerCard {
+        line-height: 4.75em;
+    }
 }
 
 .ingame .hasCard div{
@@ -131,11 +148,7 @@ input[type=button]{
 }
 
 .review .hasCard > div {
-    background: red;
-}
-
-.review .hasCard .cardNumber {
-    display: block;
+    background: orangered;
 }
 
 body {
