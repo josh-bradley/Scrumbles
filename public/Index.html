@@ -49,7 +49,7 @@
     </div>
     <hr>
 
-    <div style="height:13em">
+    <div>
     <div class="row" data-bind="visible: showGameTitle">
         <div class="col-md-2 col-md-offset-3 itemTitle" style="margin-top:0.8em">
             Estimating Item:
@@ -70,7 +70,7 @@
             <input class="fullWidth" type="button" value="Start" data-bind="click: initiateItemEstimate, visible: room.isOwner">
         </div>
     </div>
-    <div class="row" data-bind="visible: room.isStatusInGame">
+    <div class="row" data-bind="visible: room.isStatusInGame() || room.isStatusReview()">
         <div class="itemTitle col-md-2 col-md-offset-3" style="margin-top:0.8em">
             Your Card:
         </div>
@@ -80,13 +80,14 @@
                     data-bind="value: selectedCard,
                                 event: { change: cardSelected },
                                 options: cards,
-                                optionsCaption:'Choose card...'">
+                                optionsCaption:'Choose card...',
+                                enable: room.isStatusInGame">
             </select>
         </div>
     </div>
     <div class="row">
         <div class="col-md-offset-3 col-md-6">
-            <input type="button" class="fullWidth" id="showCards" value="Show Cards" data-bind="click: initiateReview, visible: room.isOwner() && anyCardsDown() && room.isStatusInGame()" />
+            <input type="button" class="fullWidth" id="showCards" value="Show Cards" data-bind="click: initiateReview, style: { visibility: room.isOwner() && anyCardsDown() && room.isStatusInGame() ? 'visible' : 'hidden'}, visible: room.isStatusInGame" />
             <input type="button" class="fullWidth" value="Done" data-bind="click: initiateEndReview, visible: room.isOwner() && room.isStatusReview()" />
         </div>
     </div>
