@@ -84,6 +84,16 @@ describe('join room', function(){
         joinRoom('test', 'henry');
         joinRoom('test', 'henry', socketMock);
 
+        expect(emitSpy.lastCall.args[1].errorField).toBe("playerName");
+    });
+
+    it('should emit room.joinConfirm to user with error message when user already exists', function(){
+        var socketMock = new fakes.SocketMock();
+        var emitSpy = sandbox.spy(socketMock, 'emit');
+
+        joinRoom('test', 'henry');
+        joinRoom('test', 'henry', socketMock);
+
         expect(emitSpy.lastCall.args[1].errorMessage).toBe("Player name in use.");
     });
 
@@ -157,4 +167,23 @@ describe('join room', function(){
         expect(socketMock.on.calledWith('item.cardSelect', sinon.match.func)).toBe(true);
     });
 
+    it('should emit room.joinConfirm to user with error message when user already exists', function(){
+        var socketMock = new fakes.SocketMock();
+        var emitSpy = sandbox.spy(socketMock, 'emit');
+
+        joinRoom('test', 'henry');
+        joinRoom('test', 'tom', socketMock, true);
+
+        expect(emitSpy.lastCall.args[1].errorField).toBe("roomName");
+    });
+
+    it('should emit room.joinConfirm to user with error message when user already exists', function(){
+        var socketMock = new fakes.SocketMock();
+        var emitSpy = sandbox.spy(socketMock, 'emit');
+
+        joinRoom('test', 'henry');
+        joinRoom('test', 'tom', socketMock, true);
+
+        expect(emitSpy.lastCall.args[1].errorMessage).toBe("Room already exists.");
+    });
 });

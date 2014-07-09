@@ -38,7 +38,7 @@ function disconnectSocket(socket){
     socket.on.restore();
 }
 
-function joinRoom(roomName, playerName, socket){
+function joinRoom(roomName, playerName, socket, isCreateRequest){
     socket = socket || new fakes.SocketMock();
     socket.on.restore && socket.on.restore();
     var onSpy = sandbox.spy(socket, 'on');
@@ -46,7 +46,7 @@ function joinRoom(roomName, playerName, socket){
 
     var joinHandler = onSpy.getCall(0).args[1];
 
-    joinHandler({name: roomName, playerName: playerName});
+    joinHandler({name: roomName, playerName: playerName, isCreateRequest: isCreateRequest});
 }
 
 function getConnectionHandler(){

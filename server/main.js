@@ -22,13 +22,23 @@ function connect(socket) {
 
     function joinRoomHandler(data) {
         var wasCreate = !rooms.doesRoomExist(data.name);
-        var roomName= data.name, playerName = data.playerName;
+
+        if(!wasCreate && data.isCreateRequest){
+            socket.emit('room.joinConfirm',
+                { errorMessage:'Room already exists.',
+                    errorField: 'roomName'});
+            return;
+        }
+
+        var roomName = data.name, playerName = data.playerName;
 
         var room = rooms.getRoom(roomName);
 
         if(room.players[playerName]){
-            socket.emit('room.joinConfirm', { errorMessage:'Player name in use.' });
-            return null;
+            socket.emit('room.joinConfirm',
+                { errorMessage:'Player name in use.',
+                    errorField:'playerName' });
+            return;
         }
 
         var player = room.addPlayer(playerName, socket);

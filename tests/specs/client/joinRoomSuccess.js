@@ -1,4 +1,4 @@
-describe('join room', function(){
+describe('join room success', function(){
     var sandbox;
 
     beforeEach(function(){

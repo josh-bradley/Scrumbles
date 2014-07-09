@@ -1,6 +1,18 @@
 var Scrumbles = Scrumbles || {};
 Scrumbles.helpers = Scrumbles.helpers || {};
 
+
+Scrumbles.helpers.createRoom = function(roomName, playerName){
+    roomName = roomName || 'test';
+    playerName = playerName || 'bob';
+    var page = Scrumbles.page;
+
+    page.joinRoomViewModel.roomName(roomName);
+    page.joinRoomViewModel.playerName(playerName);
+
+    page.createRoomRequest();
+};
+
 Scrumbles.helpers.joinRoom = function(roomName, playerName){
     roomName = roomName || 'test';
     playerName = playerName || 'bob';
@@ -29,8 +41,18 @@ Scrumbles.helpers.joinRoomConfirmSuccess = function(data){
     Scrumbles.page.joinRoomViewModel.playerName('ted');
     Scrumbles.page.joinRoomRequest();
 
-    Scrumbles.page.joinRoomSuccess(data);
-    //spy.getCall(0).args[2](data);
+    spy.getCall(0).args[2](data);
+    spy.restore();
+};
+
+Scrumbles.helpers.joinRoomConfirmFailure = function(data){
+    var spy = sinon.spy(Scrumbles.Service.roomService, 'joinRoom');
+
+    Scrumbles.page.joinRoomViewModel.roomName('test');
+    Scrumbles.page.joinRoomViewModel.playerName('ted');
+    Scrumbles.page.joinRoomRequest();
+
+    spy.getCall(0).args[3](data);
     spy.restore();
 };
 

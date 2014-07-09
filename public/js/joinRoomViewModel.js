@@ -4,13 +4,21 @@ Scrumbles.joinRoomViewModel = function(){
 
     this.playerNameErrorMessage = ko.observable();
 
+    this.errorField = ko.observable('');
+
     this.roomName = ko.observable()
-        .extend({ required:{message:'Room Name required'} });
+        .extend({ required:{message:'Room Name required'} })
+        .extend({validation:{
+            validator:function(){
+                return !self.errorField || self.errorField() !== 'roomName';
+            },
+            message: 'Room name already in use.'
+        }});
     this.playerName = ko.observable()
                             .extend({ required:{ message:'Name required' }  })
                             .extend({validation:{
                                 validator:function(){
-                                    return !self.playerNameErrorMessage() || self.playerNameErrorMessage().length === 0;
+                                    return !self.errorField || self.errorField() !== 'playerName';
                                 },
                                 message: 'Player name already in use.'
                             }});

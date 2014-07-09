@@ -3,7 +3,7 @@ Scrumbles.page = (function(){
     var pageStatus = Scrumbles.pageStatus;
 
     function joinRoomRequest(){
-        this.joinRoomViewModel.playerNameErrorMessage(null);
+        this.joinRoomViewModel.errorField(null);
         if(!this.joinRoomViewModel.isValid()){
             this.joinRoomViewModel.errors.showAllMessages();
             return;
@@ -12,7 +12,27 @@ Scrumbles.page = (function(){
         this.room.itemName.isModified(false);
         this.loadMessageViewModel.message('Joining Room...');
 
-        Scrumbles.Service.roomService.joinRoom(this.joinRoomViewModel.roomName(), this.joinRoomViewModel.playerName(), this.joinRoomSuccess, joinRoomFailure);
+        Scrumbles.Service.roomService.joinRoom(
+            this.joinRoomViewModel.roomName(),
+            this.joinRoomViewModel.playerName(),
+            this.joinRoomSuccess,
+            joinRoomFailure);
+    }
+
+    function createRoomRequest(){
+        this.joinRoomViewModel.errorField(null);
+        if(!this.joinRoomViewModel.isValid()){
+            this.joinRoomViewModel.errors.showAllMessages();
+            return;
+        }
+
+        this.loadMessageViewModel.message('Create Room...');
+
+        Scrumbles.Service.roomService.createRoom(
+            this.joinRoomViewModel.roomName(),
+            this.joinRoomViewModel.playerName(),
+            this.joinRoomSuccess,
+            joinRoomFailure);
     }
 
     function joinRoomSuccess(data){
@@ -23,7 +43,7 @@ Scrumbles.page = (function(){
 
     function joinRoomFailure(data){
         Scrumbles.page.loadMessageViewModel.clearMessage();
-        Scrumbles.page.joinRoomViewModel.playerNameErrorMessage(data.errorMessage);
+        Scrumbles.page.joinRoomViewModel.errorField(data.errorField)
     }
 
     function initiateItemEstimate(){
@@ -78,6 +98,7 @@ Scrumbles.page = (function(){
         this.endReview = endReview;
 
         // Handlers
+        this.createRoomRequest = createRoomRequest;
         this.joinRoomRequest = joinRoomRequest;
         this.initiateItemEstimate = initiateItemEstimate;
         this.initiateReview = Scrumbles.Service.gameService.initiateReview;
