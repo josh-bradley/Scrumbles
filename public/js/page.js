@@ -44,7 +44,7 @@ Scrumbles.page = (function(){
 
     function joinRoomFailure(data){
         Scrumbles.page.loadMessageViewModel.clearMessage();
-        Scrumbles.page.joinRoomViewModel.errorField(data.errorField)
+        Scrumbles.page.joinRoomViewModel.errorField(data.errorField);
     }
 
     function initiateItemEstimate(){

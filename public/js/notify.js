@@ -13,7 +13,7 @@ Scrumbles.notify = (function(){
     }
 
     function promotionToOwner(){
-        alertify.log("You are now the owner of the room")
+        alertify.log("You are now the owner of the room");
     }
 
     return {
