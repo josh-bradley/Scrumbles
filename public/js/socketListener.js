@@ -9,6 +9,7 @@ Scrumbles.socketListener = function(){
         var socket = socketManager.getSocket();
 
         socket.on('player.new', function(data){
+            Scrumbles.notify.playerHasJoinedTheRoom(data.playerName);
             viewModel.room.players.add(data);
         });
 
@@ -29,8 +30,14 @@ Scrumbles.socketListener = function(){
         });
 
         socket.on('player.leave', function(data){
+            Scrumbles.notify.playerHasLeftTheRoom(data.playerName);
             viewModel.room.players.removeByName(data.playerName);
-            viewModel.room.isOwner(data.newHostPlayerName === viewModel.room.playerName());
+            var hasBeenPromotedToOwner = data.newHostPlayerName === viewModel.room.playerName() &&
+                                            !viewModel.room.isOwner();
+            if(hasBeenPromotedToOwner){
+                Scrumbles.notify.promotionToOwner();
+                viewModel.room.isOwner(data.newHostPlayerName === viewModel.room.playerName());
+            }
         });
     }
 

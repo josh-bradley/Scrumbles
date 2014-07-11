@@ -9,6 +9,8 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/css/main.css" rel="stylesheet" />
     <link href="/css/test.css" rel="stylesheet" />
+    <link href="/css/alertify.core.css" rel="stylesheet"/>
+    <link href="/css/alertify.default.css" rel="stylesheet"/>
 
     <link href='http://fonts.googleapis.com/css?family=Rokkitt' rel='stylesheet' type='text/css'>
 </head>
@@ -113,10 +115,12 @@
     <span class="load-message" data-bind="text: loadMessageViewModel.message"></span>
 </div>
 
+<script src="/lib/alertify.min.js"></script>
 <script src="/lib/underscore.js"></script>
 <script src="/lib/knockout.js"></script>
 <script src="/lib/knockout.validation.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
+<script src="/js/notify.js"></script>
 <script src="/js/socketManager.js"></script>
 <script src="/js/pageStatus.js"></script>
 <script src="/js/service/roomService.js"></script>

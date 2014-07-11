@@ -36,6 +36,7 @@ Scrumbles.page = (function(){
     }
 
     function joinRoomSuccess(data){
+        Scrumbles.notify.joinedRoom(data.room.roomName);
         Scrumbles.page.loadMessageViewModel.clearMessage();
         Scrumbles.socketListener.init();
         Scrumbles.page.room.init(data);
