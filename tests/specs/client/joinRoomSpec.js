@@ -78,7 +78,7 @@ describe('join room', function(){
     });
 
     it('should attach on room.joinConfirm', function(){
-        var spy = sandbox.spy(Scrumbles.mocks.socketMock, 'on');
+        var spy = sandbox.spy(Scrumbles.mocks.socketMock, 'once');
         joinRoom();
 
         expect(spy.calledWith('room.joinConfirm')).toBe(true);

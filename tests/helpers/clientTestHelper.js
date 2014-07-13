@@ -25,13 +25,13 @@ Scrumbles.helpers.joinRoom = function(roomName, playerName){
 };
 
 Scrumbles.helpers.joinRoomConfirm = function(roomName, playerName, success, error, data){
-    var spy = sinon.spy(Scrumbles.mocks.socketMock, 'on');
+    var spy = sinon.spy(Scrumbles.mocks.socketMock, 'once');
 
     Scrumbles.Service.roomService.joinRoom(roomName, playerName, success, error);
 
     var call = spy.getCall(0);
     call.args[1](data);
-    Scrumbles.mocks.socketMock.on.restore();
+    Scrumbles.mocks.socketMock.once.restore();
 };
 
 Scrumbles.helpers.joinRoomConfirmSuccess = function(data){

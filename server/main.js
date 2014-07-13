@@ -20,13 +20,18 @@ function connect(socket) {
         leaveRoom();
     });
 
+    function failJoinRoom(message, errorField){
+        socket.emit('room.joinConfirm',
+            { errorMessage: message,
+                errorField: errorField});
+
+    }
+
     function joinRoomHandler(data) {
         var wasCreate = !rooms.doesRoomExist(data.name);
 
         if(!wasCreate && data.isCreateRequest){
-            socket.emit('room.joinConfirm',
-                { errorMessage:'Room already exists.',
-                    errorField: 'roomName'});
+            failJoinRoom('Room already exists.', 'roomName');
             return;
         }
 
@@ -35,9 +40,7 @@ function connect(socket) {
         var room = rooms.getRoom(roomName);
 
         if(room.players[playerName]){
-            socket.emit('room.joinConfirm',
-                { errorMessage:'Player name in use.',
-                    errorField:'playerName' });
+            failJoinRoom('Player name in use.', 'playerName');
             return;
         }
 

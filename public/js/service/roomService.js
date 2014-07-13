@@ -8,7 +8,7 @@ Scrumbles.Service.roomService = (function(){
 
     function joinRoomRequest(isCreateRequest, roomName, playerName, success, error){
         var socket = Scrumbles.socketManager.getSocket();
-        socket.on('room.joinConfirm', function(data){
+        socket.once('room.joinConfirm', function(data){
             if(!data.errorMessage){
                 success(data);
             } else {
