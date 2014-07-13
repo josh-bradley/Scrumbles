@@ -1,12 +1,12 @@
 {
   "name": "Scrumbles",
-  "version": "0.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Online scrum poker.",
   "main": "Index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Joshua.Bradley",
   "license": "ISC",
   "dependencies": {
     "socket.io": "^0.9.16",
