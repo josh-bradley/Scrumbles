@@ -23,7 +23,7 @@
             <input placeholder="Enter name..."
                    type="text"
                    class="input-large"
-                   data-bind="value: joinRoomViewModel.playerName, valueUpdate: 'afterkeydown'"
+                   data-bind="value: joinRoomViewModel.playerName, valueUpdate: 'afterkeydown', event{ 'keyup':createRoomRequest }"
                    maxlength="15"/>
         </div>
     </div>
@@ -32,7 +32,7 @@
             <input placeholder="Enter room name..."
                    type="text"
                    id="joinRoomName"
-                   data-bind="value: joinRoomViewModel.roomName, valueUpdate: 'afterkeydown'"
+                   data-bind="value: joinRoomViewModel.roomName, valueUpdate: 'afterkeydown', event{ 'keyup':createRoomRequest }"
                    maxlength="50"/>
         </div>
     </div>
