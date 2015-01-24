@@ -52,7 +52,11 @@ Scrumbles.page = (function(){
         Scrumbles.page.joinRoomViewModel.errorField(data.errorField);
     }
 
-    function initiateItemEstimate(){
+    function initiateItemEstimate(model, e){
+        if(e.keyCode && e.keyCode !== 13){
+            return;
+        }
+
         if(!this.room.isValid()){
             this.room.errors.showAllMessages();
             return;
@@ -74,15 +78,10 @@ Scrumbles.page = (function(){
         this.room.status(pageStatus.WAITING);
         this.room.itemName('');
         this.room.itemName.isModified(false);
+        this.selectedCard(undefined);
         _.each(this.room.players(), function(player){
             player.card(undefined);
         });
-    }
-
-    function keyDownJoinHandler(e){
-        if(e.keyCode == 13) {
-            joinRoomRequest();
-        }
     }
 
     var Page = function(){
@@ -110,8 +109,6 @@ Scrumbles.page = (function(){
         this.initiateReview = Scrumbles.Service.gameService.initiateReview;
         this.initiateEndReview = Scrumbles.Service.gameService.initiateEndReview;
         this.cardSelected = Scrumbles.Service.gameService.cardSelected;
-
-        this.keyDownJoinHandler = keyDownJoinHandler;
 
         this.showGameTitle = ko.computed(function(){
             return self.room.isStatusInGame() || self.room.isStatusReview();
