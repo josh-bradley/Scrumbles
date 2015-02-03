@@ -1,6 +1,13 @@
-var Scrumbles = Scrumbles || {};
-Scrumbles.page = (function(){
-    var pageStatus = Scrumbles.pageStatus;
+module.exports = (function(){
+    var pageStatus = require('./pageStatus.js');
+    var roomService = require('./service/roomService.js');
+    var notify = require('./notify.js');
+    //var page = require('./page.js');
+    var Room = require('./room.js');
+    var gameService = require('./service/gameService.js');
+    var socketListener = require('./socketListener.js');
+    var JoinRoomViewModel = require('./joinRoomViewModel.js');
+    var LoadMessageViewModel = require('./loadMessageViewModel.js');
 
     function joinRoomRequest(){
         this.joinRoomViewModel.errorField(null);
@@ -12,7 +19,7 @@ Scrumbles.page = (function(){
         this.room.itemName.isModified(false);
         this.loadMessageViewModel.message('Joining Room...');
 
-        Scrumbles.Service.roomService.joinRoom(
+        roomService.joinRoom(
             this.joinRoomViewModel.roomName(),
             this.joinRoomViewModel.playerName(),
             this.joinRoomSuccess,
@@ -33,7 +40,7 @@ Scrumbles.page = (function(){
 
         this.loadMessageViewModel.message('Create Room...');
 
-        Scrumbles.Service.roomService.createRoom(
+        roomService.createRoom(
             this.joinRoomViewModel.roomName(),
             this.joinRoomViewModel.playerName(),
             this.joinRoomSuccess,
@@ -41,15 +48,15 @@ Scrumbles.page = (function(){
     }
 
     function joinRoomSuccess(data){
-        Scrumbles.notify.joinedRoom(data.room.roomName);
-        Scrumbles.page.loadMessageViewModel.clearMessage();
-        Scrumbles.socketListener.init();
-        Scrumbles.page.room.init(data);
+        notify.joinedRoom(data.room.roomName);
+        viewModel.loadMessageViewModel.clearMessage();
+        socketListener.init();
+        viewModel.room.init(data);
     }
 
     function joinRoomFailure(data){
-        Scrumbles.page.loadMessageViewModel.clearMessage();
-        Scrumbles.page.joinRoomViewModel.errorField(data.errorField);
+        viewModel.loadMessageViewModel.clearMessage();
+        viewModel.joinRoomViewModel.errorField(data.errorField);
     }
 
     function initiateItemEstimate(model, e){
@@ -62,7 +69,7 @@ Scrumbles.page = (function(){
             return;
         }
 
-        Scrumbles.Service.gameService.initiateItemEstimate(this.room.itemName());
+        gameService.initiateItemEstimate(this.room.itemName());
     }
 
     function startItemEstimate(itemName){
@@ -84,15 +91,15 @@ Scrumbles.page = (function(){
         });
     }
 
-    var Page = function(){
+    var PageModel = function(){
         var self = this;
 
         this.cards = ko.observableArray(['1/2', '1', '2', '4', '8', '13', '20', '40', '100', '?']);
 
-        this.joinRoomViewModel = new Scrumbles.joinRoomViewModel();
-        this.room = new Scrumbles.Room();
+        this.joinRoomViewModel = new JoinRoomViewModel();
+        this.room = new Room();
 
-        this.loadMessageViewModel = new Scrumbles.LoadMessageViewModel();
+        this.loadMessageViewModel = new LoadMessageViewModel();
 
         this.selectedCard = ko.observable();
 
@@ -106,9 +113,9 @@ Scrumbles.page = (function(){
         this.createRoomRequest = createRoomRequest;
         this.joinRoomRequest = joinRoomRequest;
         this.initiateItemEstimate = initiateItemEstimate;
-        this.initiateReview = Scrumbles.Service.gameService.initiateReview;
-        this.initiateEndReview = Scrumbles.Service.gameService.initiateEndReview;
-        this.cardSelected = Scrumbles.Service.gameService.cardSelected;
+        this.initiateReview = gameService.initiateReview;
+        this.initiateEndReview = gameService.initiateEndReview;
+        this.cardSelected = gameService.cardSelected;
 
         this.showGameTitle = ko.computed(function(){
             return self.room.isStatusInGame() || self.room.isStatusReview();
@@ -135,7 +142,7 @@ Scrumbles.page = (function(){
         this.room.errors = ko.validation.group(this.room);
     };
 
-    var viewModel = new Page();
+    var viewModel = new PageModel();
 
     return viewModel;
 })();

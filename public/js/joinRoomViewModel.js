@@ -1,5 +1,4 @@
-var Scrumbles = Scrumbles || {};
-Scrumbles.joinRoomViewModel = function(){
+module.exports = function(){
     var self = this;
 
     this.playerNameErrorMessage = ko.observable();

@@ -1,5 +1,4 @@
-var Scrumbles = Scrumbles || {};
-Scrumbles.LoadMessageViewModel = function(){
+module.exports = function(){
     var self = this;
     this.message = ko.observable();
     this.show = ko.computed(function(){

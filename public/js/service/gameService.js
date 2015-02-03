@@ -1,23 +1,22 @@
-var Scrumbles = Scrumbles || {};
-Scrumbles.Service = Scrumbles.Service || {};
-Scrumbles.Service.gameService = (function(){
+module.exports = (function(){
+    var socketManager = require('../socketManager.js');
     function initiateItemEstimate(itemName){
-        var socket = Scrumbles.socketManager.getSocket();
+        var socket = socketManager.getSocket();
         socket.emit('item.startEstimate', { itemName: itemName });
     }
 
     function initiateReview(){
-        var socket = Scrumbles.socketManager.getSocket();
+        var socket = socketManager.getSocket();
         socket.emit('item.showCards', {});
     }
 
     function initiateEndReview(){
-        var socket = Scrumbles.socketManager.getSocket();
+        var socket = socketManager.getSocket();
         socket.emit('item.finishReviewRequest', {});
     }
 
     function cardSelected(){
-        var socket = Scrumbles.socketManager.getSocket();
+        var socket = socketManager.getSocket();
         socket.emit('item.cardSelect', { card: this.selectedCard() });
     }
 

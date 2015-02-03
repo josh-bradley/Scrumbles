@@ -1,6 +1,6 @@
-var Scrumbles = Scrumbles || {};
-Scrumbles.Room = function(){
-    var pageStatus = Scrumbles.pageStatus;
+module.exports = function(){
+    var pageStatus = require('./pageStatus.js');
+    var players = require('./players.js');
     var self = this;
 
     this.status = ko.observable(pageStatus.INIT);
@@ -23,7 +23,7 @@ Scrumbles.Room = function(){
     this.playerName = ko.observable();
     this.isOwner = ko.observable(false);
 
-    this.players = Scrumbles.players.init();
+    this.players = players.init();
 
     this.itemName = ko.observable().extend({ required:
     {

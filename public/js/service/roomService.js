@@ -1,13 +1,11 @@
-var Scrumbles = Scrumbles || {};
-Scrumbles.Service = Scrumbles.Service || {};
-Scrumbles.Service.roomService = (function(){
-
+module.exports = (function(){
+    var socketManager = require('../socketManager.js');
     function joinRoom(roomName, playerName, success, error){
         joinRoomRequest(false, roomName, playerName, success, error);
     }
 
     function joinRoomRequest(isCreateRequest, roomName, playerName, success, error){
-        var socket = Scrumbles.socketManager.getSocket();
+        var socket = socketManager.getSocket();
         socket.once('room.joinConfirm', function(data){
             if(!data.errorMessage){
                 success(data);

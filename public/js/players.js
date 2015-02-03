@@ -1,6 +1,5 @@
-var Scrumbles = Scrumbles || {};
-Scrumbles.players = (function(){
-    var Player = Scrumbles.Player;
+module.exports = (function(){
+    var Player = require('./player.js');
 
     function init(){
         var playerStore = ko.observableArray([]);

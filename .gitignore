@@ -7,3 +7,4 @@ public/templates/Index.html
 public/Index.html
 npm-debug.log
 .idea/*
+public/js/bundle.js

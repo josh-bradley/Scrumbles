@@ -1,15 +1,13 @@
-var Scrumbles = Scrumbles || {};
-Scrumbles.socketListener = function(){
-    var socketManager, viewModel;
-
+module.exports = (function(){
+    var socketManager = require('./socketManager.js');
+    var notify = require('./notify.js');
     function init(){
-        socketManager = Scrumbles.socketManager;
-        viewModel = Scrumbles.page;
+        var viewModel = require('./page.js');
 
         var socket = socketManager.getSocket();
 
         socket.on('player.new', function(data){
-            Scrumbles.notify.playerHasJoinedTheRoom(data.playerName);
+            notify.playerHasJoinedTheRoom(data.playerName);
             viewModel.room.players.add(data);
         });
 
@@ -30,12 +28,12 @@ Scrumbles.socketListener = function(){
         });
 
         socket.on('player.leave', function(data){
-            Scrumbles.notify.playerHasLeftTheRoom(data.playerName);
+            notify.playerHasLeftTheRoom(data.playerName);
             viewModel.room.players.removeByName(data.playerName);
             var hasBeenPromotedToOwner = data.newHostPlayerName === viewModel.room.playerName() &&
                                             !viewModel.room.isOwner();
             if(hasBeenPromotedToOwner){
-                Scrumbles.notify.promotionToOwner();
+                notify.promotionToOwner();
                 viewModel.room.isOwner(data.newHostPlayerName === viewModel.room.playerName());
             }
         });
@@ -44,4 +42,4 @@ Scrumbles.socketListener = function(){
     return {
         init: init
     };
-}();
+}());

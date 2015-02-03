@@ -1,5 +1,4 @@
-var Scrumbles = Scrumbles || {};
-Scrumbles.notify = (function(){
+module.exports = (function(){
     function playerHasJoinedTheRoom(playerName){
         alertify.log("Player " + playerName + " has joined the room");
     }

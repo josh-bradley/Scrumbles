@@ -1,6 +1,6 @@
 window.onload = function(){
-    Scrumbles.socketManager.connect();
+    require('./socketManager.js').connect();
 
-    var viewModel = Scrumbles.page;
+    var viewModel = require('./page.js');
     ko.applyBindings(viewModel);
 };

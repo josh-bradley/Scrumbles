@@ -1,5 +1,4 @@
-var Scrumbles = Scrumbles || {};
-Scrumbles.socketManager = (function(){
+module.exports = (function(){
     var socket;
     function connect() {
         socket = io.connect();
