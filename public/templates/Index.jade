@@ -1,0 +1,28 @@
+doctype html
+html
+   head
+      include ./Head.jade
+   body
+      h1(data-bind='visible: room.isStatusInit') Scrumbles
+      p(style='text-align:center;font-family: sans-serif', data-bind='visible: room.isStatusInit') Online scrumb poker
+      include ./Start.jade
+      include ./Room.jade
+      include ./Modal.jade
+      script(src='/lib/alertify.min.js')
+      script(src='/lib/underscore.js')
+      script(src='/lib/knockout.js')
+      script(src='/lib/knockout.validation.min.js')
+      script(src='/socket.io/socket.io.js')
+      script(src='/js/notify.js')
+      script(src='/js/socketManager.js')
+      script(src='/js/pageStatus.js')
+      script(src='/js/service/roomService.js')
+      script(src='/js/service/gameService.js')
+      script(src='/js/socketListener.js')
+      script(src='/js/player.js')
+      script(src='/js/players.js')
+      script(src='/js/loadMessageViewModel.js')
+      script(src='/js/room.js')
+      script(src='/js/joinRoomViewModel.js')
+      script(src='/js/page.js')
+      script(src='/js/main.js')

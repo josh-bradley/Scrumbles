@@ -15,10 +15,11 @@
   },
   "devDependencies": {
     "grunt": "^0.4.4",
+    "grunt-contrib-csslint": "^0.2.0",
+    "grunt-contrib-jade": "^0.14.1",
     "grunt-contrib-jshint": "^0.10.0",
-    "mockery": "^1.4.0",
     "grunt-contrib-nodeunit": "^0.3.3",
-    "sinon": "^1.9.1",
-    "grunt-contrib-csslint": "^0.2.0"
+    "mockery": "^1.4.0",
+    "sinon": "^1.9.1"
   }
 }

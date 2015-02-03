@@ -1,0 +1,12 @@
+.container(data-bind='visible: room.isStatusInit')
+   .row
+      .col-md-4.col-md-offset-4.col-gut-4
+         input.input-large(placeholder='Enter name...', type='text', data-bind="hasFocus: room.isStatusInit, value: joinRoomViewModel.playerName, valueUpdate: 'afterkeydown', event:{ 'keyup':createRoomRequest }", maxlength='15')
+   .row
+      .col-md-4.col-md-offset-4.col-gut-4
+         input#joinRoomName(placeholder='Enter room name...', type='text', data-bind="value: joinRoomViewModel.roomName, valueUpdate: 'afterkeydown', event:{ 'keyup':createRoomRequest }", maxlength='50')
+   .row
+      .col-md-offset-4.col-md-2.col-gut-4
+         input#createRoom.fullWidth(type='button', value='Create Room', data-bind='click: createRoomRequest')
+      .col-md-2.col-gut-4
+         input.fullWidth(type='button', value='Join Room', data-bind='click: joinRoomRequest')

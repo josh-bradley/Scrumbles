@@ -51,6 +51,18 @@ module.exports = function(grunt){
                 }
             },
             all: ['tests/specs/server/']
+        },
+        jade: {
+            compile: {
+                options: {
+                    data: {
+                        debug: false
+                    }
+                },
+                files: {
+                    "public/Index.html": ["public/templates/Index.jade"]
+                }
+            }
         }
     });
 
@@ -59,6 +71,7 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-jasmine-node');
     grunt.loadNpmTasks('grunt-contrib-csslint');
+    grunt.loadNpmTasks('grunt-contrib-jade');
     // Default task(s).
-    grunt.registerTask('default', ['jshint:all', 'jasmine', 'jasmine_node']);
+    grunt.registerTask('default', ['jshint:all', 'jasmine', 'jasmine_node', 'jade']);
 };
