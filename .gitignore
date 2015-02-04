@@ -4,7 +4,6 @@ azure.err
 public/templates/Start.html
 public/templates/Room.html
 public/templates/Index.html
-public/Index.html
 npm-debug.log
 .idea/*
 public/js/bundle.js
