@@ -9,4 +9,3 @@ npm-debug.log
 .idea/*
 public/js/bundle.js
 todo.txt
-public/js/dest/*
