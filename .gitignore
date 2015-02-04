@@ -8,4 +8,5 @@ public/Index.html
 npm-debug.log
 .idea/*
 public/js/bundle.js
-toto.txt
+todo.txt
+public/js/dest/*

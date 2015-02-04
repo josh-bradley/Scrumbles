@@ -63,6 +63,23 @@ module.exports = function(grunt){
                     "public/Index.html": ["public/templates/Index.jade"]
                 }
             }
+        },
+        browserify: {
+            dist: {
+                files: {
+                    'public/js/bundle.js': ['public/js/main.js']
+                }
+            }
+        },
+        uglify: {
+            index: {
+                files: {
+                    'public/js/dest/main.min.js': ['public/js/bundle.js']
+                }
+            },
+            options: {
+                sourceMap:true
+            }
         }
     });
 
@@ -72,6 +89,9 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-jasmine-node');
     grunt.loadNpmTasks('grunt-contrib-csslint');
     grunt.loadNpmTasks('grunt-contrib-jade');
+    grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     // Default task(s).
-    grunt.registerTask('default', ['jshint:all', 'jasmine', 'jasmine_node', 'jade']);
+    grunt.registerTask('default', ['jshint:all', 'jasmine', 'jasmine_node', 'jade', 'browserify', 'uglify']);
+    grunt.registerTask('bundlejs', ['browserify', 'uglify']);
 };
