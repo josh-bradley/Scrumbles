@@ -3,7 +3,7 @@ module.exports = function(grunt){
         pkg: grunt.file.readJSON('package.json'),
         jshint: {
             all: ['gruntfile.js', 'public/js/*.js', 'tests/specs/**/*.js', 'server/*.js'],
-            options: {ignores: ['public/js/jquery.*']}
+            options: {ignores: ['public/js/bundle.js']}
         },
 
         csslint: {

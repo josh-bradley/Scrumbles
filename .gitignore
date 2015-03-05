@@ -8,3 +8,4 @@ npm-debug.log
 .idea/*
 public/js/bundle.js
 todo.txt
+public/lib

@@ -1,0 +1,28 @@
+{
+  "name": "Scrumbles",
+  "version": "0.0.0",
+  "homepage": "https://github.com/josh-bradley/Scrumbles",
+  "authors": [
+    "josh <joshjb84@hotmail.com>"
+  ],
+  "description": "Online scrumb poker",
+  "main": "Index.html",
+  "keywords": [
+    "scrum",
+    "poker"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "alertify": "~0.3.10",
+    "alertify.js": "~0.3.11",
+    "knockout": "~3.3.0",
+    "knockout-validation": "~2.0.2"
+  }
+}
