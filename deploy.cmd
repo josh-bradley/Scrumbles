@@ -107,12 +107,12 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
 
 ::  4. Install bower packages
 IF EXIST "%DEPLOYMENT_TARGET%\public\bower.json" (
-     cd "%DEPLOYMENT_TARGET%\public"
-     eval $NPM_CMD install bower
-     exitWithMessageOnError "installing bower failed"
+     pushd "%DEPLOYMENT_TARGET%\public"
+     call :ExecuteCmd !NPM_CMD! install bower
+     IF !ERRORLEVEL! NEQ 0 goto error
      ./node_modules/.bin/bower install
-     exitWithMessageOnError "bower failed"
-     cd - > /dev/null
+        IF !ERRORLEVEL! NEQ 0 goto error
+     popd
 )
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
