@@ -20,9 +20,8 @@
     "tests"
   ],
   "dependencies": {
-    "alertify": "~0.3.10",
     "alertify.js": "~0.3.11",
     "knockout": "~3.3.0",
-    "knockout-validation": "~2.0.2"
+    "knockout-validation": "1.0.2"
   }
 }
