@@ -110,6 +110,7 @@ IF EXIST "%DEPLOYMENT_TARGET%\public\bower.json" (
      pushd "%DEPLOYMENT_TARGET%\public"
      call :ExecuteCmd !NPM_CMD! install "bower"
      IF !ERRORLEVEL! NEQ 0 goto error
+     echo dir
      call ".\node_modules\.bin\bower.cmd" install
      IF !ERRORLEVEL! NEQ 0 goto error
      popd
