@@ -4,33 +4,35 @@
          h2(data-bind='text: room.name')
    hr
    div
-      .row(data-bind='visible: showGameTitle')
-         .col-md-2.col-md-offset-3.itemTitle(style='margin-top:0.8em')
+      .row.task-details(data-bind='visible: showGameTitle')
+         .col-md-3.col-md-offset-3.itemTitle(style='margin-top:0.8em')
             | Estimating Item:
-         .col-md-4.itemTitle(style='margin-top:0.8em')
+            br
             span(data-bind='text: room.itemName')
+         .col-md-3.itemTitle(style='margin-top:0.8em', data-bind='visible: room.isStatusInGame() || room.isStatusReview()')
+             .cardPlaceHolder(data-bind='css: { hasCard : selectedCard }')
+                 .emptyCard
+                     .innerCard(data-bind='visible: selectedCard')
+                         span.cardNumber(data-bind='text: selectedCard')
+                 span.cardPlayerName(data-bind='text: me.playerName')
+          select#cardSelector.fullWidth.selectCard(data-bind="value: selectedCard,\
+            event: { change: cardSelected },\
+            options: cards,\
+            optionsCaption:'Choose card...',\
+            enable: room.isStatusInGame")
       .row(data-bind='visible: room.isStatusWaiting')
          .col-md-4.col-md-offset-3.col-gut-4
             span.itemTitle(data-bind='visible: !room.isOwner()') Waiting for next game to start...
             input(type='text', placeholder='Enter task name...', data-bind="value: room.itemName, visible: room.isOwner, event:{ 'keyup':initiateItemEstimate }", maxlength='50')
          .col-md-2.col-gut-4
             input.fullWidth(type='button', value='Start', data-bind='click: initiateItemEstimate, visible: room.isOwner')
-      .row(data-bind='visible: room.isStatusInGame() || room.isStatusReview()')
-         .itemTitle.col-md-2.col-md-offset-3(style='margin-top:0.8em')
-            | Your Card:
-         .col-md-4
-            select#cardSelector.fullWidth.selectCard(data-bind="value: selectedCard,\
-            event: { change: cardSelected },\
-            options: cards,\
-            optionsCaption:'Choose card...',\
-            enable: room.isStatusInGame")
       .row
          .col-md-offset-3.col-md-6
             input#showCards.fullWidth(type='button', value='Show Cards', data-bind="click: initiateReview, style: { visibility: room.isOwner() && anyCardsDown() && room.isStatusInGame() ? 'visible' : 'hidden'}, visible: room.isStatusInGame")
             input.fullWidth(type='button', value='Done', data-bind='hasFocus: room.isStatusReview, click: initiateEndReview, visible: room.isOwner() && room.isStatusReview()')
-   .row(data-bind='visible: !room.isStatusWaiting()')
+   .row.card-table(data-bind='visible: !room.isStatusWaiting()')
       #cardTable.col-md-8(data-bind='foreach: room.players, css: statusClass')
-         .cardPlaceHolder(data-bind='css { hasCard : card() }')
+         .cardPlaceHolder(data-bind='css: { hasCard : card() }')
             .emptyCard
                .innerCard(data-bind='visible: $parent.room.isStatusReview')
                   span.cardNumber(data-bind='text: card')

@@ -20,7 +20,9 @@
 
 613D23 613D23 06273B 0B4161 06606B 066152 543409*/
 body{
-    background-color:#093854;
+    /*background-color:#093854;*/
+    /*background-color:#2D566E;*/
+    background-color:#324982
 }
 
 input[type=text]{
@@ -29,5 +31,7 @@ input[type=text]{
 }
 
 input[type=button]{
-    background-color:#2D566E;
+    background-color:#4A6DC1;
+    /*background-color:#093854;*/
+    /*background-color:#2D566E;*/
 }

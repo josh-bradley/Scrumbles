@@ -9,3 +9,6 @@ npm-debug.log
 public/js/bundle.js
 todo.txt
 public/lib
+public/js/dest
+public/css/dest
+public/Index.html

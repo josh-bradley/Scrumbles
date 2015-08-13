@@ -52,7 +52,7 @@ function connect(socket) {
         socket.scrumbles.room = room;
         socket.scrumbles.player = player;
 
-        socket.emit('room.joinConfirm', { playerName: playerName, room: room, wasCreate: wasCreate });
+        socket.emit('room.joinConfirm', { playerName: playerName, room: room, wasCreate: wasCreate, you: player });
 
         if(!room){
             return;

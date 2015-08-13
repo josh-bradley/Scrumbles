@@ -52,6 +52,7 @@ module.exports = (function(){
         viewModel.loadMessageViewModel.clearMessage();
         socketListener.init();
         viewModel.room.init(data);
+        viewModel.me = data.you;
     }
 
     function joinRoomFailure(data){
@@ -94,6 +95,7 @@ module.exports = (function(){
     var PageModel = function(){
         var self = this;
 
+        this.me = {};
         this.cards = ko.observableArray(['1/2', '1', '2', '4', '8', '13', '20', '40', '100', '?']);
 
         this.joinRoomViewModel = new JoinRoomViewModel();

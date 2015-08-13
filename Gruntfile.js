@@ -91,8 +91,23 @@ module.exports = function(grunt){
                     ext: '.min.css'
                 }]
             }
+        },
+        watch: {
+            scripts: {
+                files: ['public/templates/*.jade'],
+                tasks: ['jade'],
+                options: {
+                    spawn: false
+                }
+            },
+            css: {
+                files: ['public/css/*.css'],
+                tasks: ['cssmin'],
+                options: {
+                    spawn: false
+                }
+            }
         }
-
     });
 
     // Load the plugins
@@ -104,6 +119,8 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+
     // Default task(s).
     grunt.registerTask('default', ['jshint:all', 'jasmine', 'jasmine_node', 'jade', 'browserify', 'uglify']);
     grunt.registerTask('toprod', ['jade', 'browserify', 'uglify', 'cssmin']);
