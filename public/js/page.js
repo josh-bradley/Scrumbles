@@ -15,7 +15,6 @@ module.exports = (function(){
             this.joinRoomViewModel.errors.showAllMessages();
             return;
         }
-
         this.room.itemName.isModified(false);
         this.loadMessageViewModel.message('Joining Room...');
 
@@ -49,15 +48,15 @@ module.exports = (function(){
 
     function joinRoomSuccess(data){
         notify.joinedRoom(data.room.roomName);
-        viewModel.loadMessageViewModel.clearMessage();
-        socketListener.init(viewModel);
-        viewModel.room.init(data);
-        viewModel.me = data.you;
+        this.loadMessageViewModel.clearMessage();
+        socketListener.init(this);
+        this.room.init(data);
+        this.me = data.you;
     }
 
     function joinRoomFailure(data){
-        viewModel.loadMessageViewModel.clearMessage();
-        viewModel.joinRoomViewModel.errorField(data.errorField);
+        this.loadMessageViewModel.clearMessage();
+        this.joinRoomViewModel.errorField(data.errorField);
     }
 
     function initiateItemEstimate(model, e){
@@ -106,7 +105,8 @@ module.exports = (function(){
         this.selectedCard = ko.observable();
 
         // Status changes
-        this.joinRoomSuccess = joinRoomSuccess;
+        this.joinRoomSuccess = joinRoomSuccess.bind(this);
+        this.joinRoomFailure = joinRoomFailure.bind(this);
         this.startItemEstimate = startItemEstimate;
         this.review = review;
         this.endReview = endReview;

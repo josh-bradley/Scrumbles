@@ -19,14 +19,14 @@ describe('join room', function(){
     it('should set loading message', function(){
         var spy = sandbox.spy(page.loadMessageViewModel, 'message');
 
-        joinRoom();
+        joinRoom(page);
 
         expect(spy.getCall(0).args[0]).toBe('Joining Room...');
     });
 
     it('should call roomService.joinRoom when valid', function(){
        var spy = sandbox.spy(roomService, 'joinRoom');
-       joinRoom();
+       joinRoom(page);
 
        expect(spy.callCount).toBe(1);
     });
@@ -34,7 +34,7 @@ describe('join room', function(){
     it('should not call roomService.joinRoom when room name not supplied', function(){
         var spy = sandbox.spy(roomService, 'joinRoom');
 
-        var page = new page.constructor();
+        var page = new pageConstructor.constructor();
         page.joinRoomViewModel.playerName('Bob');
         page.joinRoomRequest();
 
@@ -44,7 +44,7 @@ describe('join room', function(){
     it('should not call roomService.joinRoom when playerName not supplied', function(){
         var spy = sandbox.spy(roomService, 'joinRoom');
 
-        var page = new page.constructor();
+        var page = new pageConstructor.constructor();
         page.joinRoomViewModel.roomName('Bob');
         page.joinRoomRequest();
 
@@ -53,7 +53,7 @@ describe('join room', function(){
 
     it('should emit room.join', function(){
         var spy = sandbox.spy(socketMock, 'emit');
-        joinRoom();
+        joinRoom(page);
 
         expect(spy.getCall(0).args[0]).toBe('room.join');
     });
@@ -61,7 +61,7 @@ describe('join room', function(){
     it('should emit room.join with correct room name', function(){
         var spy = sandbox.spy(socketMock, 'emit');
         var expected = 'room1';
-        joinRoom(expected);
+        joinRoom(page, expected);
 
         expect(spy.getCall(0).args[1].name).toBe(expected);
     });
@@ -69,21 +69,21 @@ describe('join room', function(){
     it('should emit room.join with correct player name', function(){
         var spy = sandbox.spy(socketMock, 'emit');
         var expected = 'tim';
-        joinRoom('test', expected);
+        joinRoom(page, 'test', expected);
 
         expect(spy.getCall(0).args[1].playerName).toBe(expected);
     });
 
     it('should emit room.join with isCreate set to false', function(){
         var spy = sandbox.spy(socketMock, 'emit');
-        joinRoom();
+        joinRoom(page);
 
         expect(spy.getCall(0).args[1].isCreateRequest).toBe(false);
     });
 
     it('should attach on room.joinConfirm', function(){
         var spy = sandbox.spy(socketMock, 'once');
-        joinRoom();
+        joinRoom(page);
 
         expect(spy.calledWith('room.joinConfirm')).toBe(true);
     });

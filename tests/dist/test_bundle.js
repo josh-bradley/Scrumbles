@@ -77,7 +77,6 @@ module.exports = (function(){
             this.joinRoomViewModel.errors.showAllMessages();
             return;
         }
-
         this.room.itemName.isModified(false);
         this.loadMessageViewModel.message('Joining Room...');
 
@@ -111,15 +110,15 @@ module.exports = (function(){
 
     function joinRoomSuccess(data){
         notify.joinedRoom(data.room.roomName);
-        viewModel.loadMessageViewModel.clearMessage();
-        socketListener.init(viewModel);
-        viewModel.room.init(data);
-        viewModel.me = data.you;
+        this.loadMessageViewModel.clearMessage();
+        socketListener.init(this);
+        this.room.init(data);
+        this.me = data.you;
     }
 
     function joinRoomFailure(data){
-        viewModel.loadMessageViewModel.clearMessage();
-        viewModel.joinRoomViewModel.errorField(data.errorField);
+        this.loadMessageViewModel.clearMessage();
+        this.joinRoomViewModel.errorField(data.errorField);
     }
 
     function initiateItemEstimate(model, e){
@@ -168,7 +167,8 @@ module.exports = (function(){
         this.selectedCard = ko.observable();
 
         // Status changes
-        this.joinRoomSuccess = joinRoomSuccess;
+        this.joinRoomSuccess = joinRoomSuccess.bind(this);
+        this.joinRoomFailure = joinRoomFailure.bind(this);
         this.startItemEstimate = startItemEstimate;
         this.review = review;
         this.endReview = endReview;
@@ -931,14 +931,14 @@ describe('join room', function(){
     it('should set loading message', function(){
         var spy = sandbox.spy(page.loadMessageViewModel, 'message');
 
-        joinRoom();
+        joinRoom(page);
 
         expect(spy.getCall(0).args[0]).toBe('Joining Room...');
     });
 
     it('should call roomService.joinRoom when valid', function(){
        var spy = sandbox.spy(roomService, 'joinRoom');
-       joinRoom();
+       joinRoom(page);
 
        expect(spy.callCount).toBe(1);
     });
@@ -946,7 +946,7 @@ describe('join room', function(){
     it('should not call roomService.joinRoom when room name not supplied', function(){
         var spy = sandbox.spy(roomService, 'joinRoom');
 
-        var page = new page.constructor();
+        var page = new pageConstructor.constructor();
         page.joinRoomViewModel.playerName('Bob');
         page.joinRoomRequest();
 
@@ -956,7 +956,7 @@ describe('join room', function(){
     it('should not call roomService.joinRoom when playerName not supplied', function(){
         var spy = sandbox.spy(roomService, 'joinRoom');
 
-        var page = new page.constructor();
+        var page = new pageConstructor.constructor();
         page.joinRoomViewModel.roomName('Bob');
         page.joinRoomRequest();
 
@@ -965,7 +965,7 @@ describe('join room', function(){
 
     it('should emit room.join', function(){
         var spy = sandbox.spy(socketMock, 'emit');
-        joinRoom();
+        joinRoom(page);
 
         expect(spy.getCall(0).args[0]).toBe('room.join');
     });
@@ -973,7 +973,7 @@ describe('join room', function(){
     it('should emit room.join with correct room name', function(){
         var spy = sandbox.spy(socketMock, 'emit');
         var expected = 'room1';
-        joinRoom(expected);
+        joinRoom(page, expected);
 
         expect(spy.getCall(0).args[1].name).toBe(expected);
     });
@@ -981,21 +981,21 @@ describe('join room', function(){
     it('should emit room.join with correct player name', function(){
         var spy = sandbox.spy(socketMock, 'emit');
         var expected = 'tim';
-        joinRoom('test', expected);
+        joinRoom(page, 'test', expected);
 
         expect(spy.getCall(0).args[1].playerName).toBe(expected);
     });
 
     it('should emit room.join with isCreate set to false', function(){
         var spy = sandbox.spy(socketMock, 'emit');
-        joinRoom();
+        joinRoom(page);
 
         expect(spy.getCall(0).args[1].isCreateRequest).toBe(false);
     });
 
     it('should attach on room.joinConfirm', function(){
         var spy = sandbox.spy(socketMock, 'once');
-        joinRoom();
+        joinRoom(page);
 
         expect(spy.calledWith('room.joinConfirm')).toBe(true);
     });
