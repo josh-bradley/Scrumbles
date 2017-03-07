@@ -1,28 +1,31 @@
 describe('join room failure', function(){
     var sandbox;
+    var helpers = require('../../helpers/clientTestHelper');
+    var pageConstructor = require('../../../public/js/page');
+    var page;
 
     beforeEach(function(){
         sandbox = sinon.sandbox.create();
+        page = new pageConstructor.constructor();
     });
 
     afterEach(function(){
         sandbox.restore();
-        Scrumbles.page = new Scrumbles.page.constructor();
     });
 
     it('should clear the loading message', function(){
-        var spy = sandbox.spy(Scrumbles.page.loadMessageViewModel, 'clearMessage');
+        var spy = sandbox.spy(page.loadMessageViewModel, 'clearMessage');
 
-        Scrumbles.helpers.joinRoomConfirmFailure({});
+        helpers.joinRoomConfirmFailure(page, {});
 
         expect(spy.callCount).toBe(1);
     });
 
     it('should set the playerNameError prop to true on player error', function(){
-        var spy = sandbox.spy(Scrumbles.page.loadMessageViewModel, 'clearMessage');
+        var spy = sandbox.spy(page.loadMessageViewModel, 'clearMessage');
 
-        Scrumbles.helpers.joinRoomConfirmFailure({errorField:'playerName'});
+        helpers.joinRoomConfirmFailure(page, {errorField:'playerName'});
 
-        expect(Scrumbles.page.joinRoomViewModel.errorField()).toBe('playerName');
+        expect(page.joinRoomViewModel.errorField()).toBe('playerName');
     });
 });

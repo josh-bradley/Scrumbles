@@ -23,7 +23,7 @@ module.exports = (function(){
             this.joinRoomViewModel.roomName(),
             this.joinRoomViewModel.playerName(),
             this.joinRoomSuccess,
-            joinRoomFailure);
+            this.joinRoomFailure);
     }
 
     function createRoomRequest(model, e){
@@ -44,13 +44,13 @@ module.exports = (function(){
             this.joinRoomViewModel.roomName(),
             this.joinRoomViewModel.playerName(),
             this.joinRoomSuccess,
-            joinRoomFailure);
+            this.joinRoomFailure);
     }
 
     function joinRoomSuccess(data){
         notify.joinedRoom(data.room.roomName);
         viewModel.loadMessageViewModel.clearMessage();
-        socketListener.init();
+        socketListener.init(viewModel);
         viewModel.room.init(data);
         viewModel.me = data.you;
     }

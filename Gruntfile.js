@@ -15,24 +15,41 @@ module.exports = function(grunt){
             all: {
                 src: [  'tests/lib/*.js',
                         'public/lib/*.js',
+                        'public/lib/knockout/dist/*.js',
+                        'public/lib/knockout-validation/dist/*.js',
+                        'public/lib/underscore/*.js',
                         'tests/helpers/sinonExtentions.js',
                         'tests/helpers/serverCalls',
                         'tests/helpers/clientSideMocks.js',
                         'tests/helpers/clientTestHelper.js',
-                        'public/js/notify.js',
-                        'public/js/socketManager.js',
                         'tests/helpers/socket.io.fake.js',
-                        'public/js/service/*.js',
-                        'public/js/joinRoomViewModel.js',
-                        'public/js/room.js',
-                        'public/js/pageStatus.js',
-                        'public/js/player.js',
-                        'public/js/players.js',
-                        'public/js/loadMessageViewModel.js',
-                        'public/js/socketListener.js',
-                        'public/js/page.js'],
+                        //'public/js/dest/main.min.js'
+                        // 'public/js/notify.js',
+                        // 'public/js/socketManager.js',
+                        // 'public/js/service/*.js',
+                        // 'public/js/joinRoomViewModel.js',
+                        // 'public/js/room.js',
+                        // 'public/js/pageStatus.js',
+                        // 'public/js/player.js',
+                        // 'public/js/players.js',
+                        // 'public/js/loadMessageViewModel.js',
+                        // 'public/js/socketListener.js',
+                        // 'public/js/page.js'
+                           ],
                 options: {
-                    specs: 'tests/specs/client/*.js'
+                    specs: 'tests/specs/client/createRoomSpec.js'
+                }
+            },
+            new: {
+                src: [ 'public/js/bundle.js' ],
+                options: {
+                    specs: 'tests/dist/test_bundle.js',
+                    vendor: ['public/lib/knockout/dist/*.js',
+                                'public/lib/knockout-validation/dist/*.js',
+                                'public/lib/underscore/*.js',
+                                'tests/helpers/socket.io.fake.js',
+                                'tests/lib/sinon.js',
+                                'public/lib/alertify.js/lib/alertify.js']
                 }
             }
         },
@@ -42,7 +59,8 @@ module.exports = function(grunt){
                 match: '.',
                 matchall: false,
                 extensions: 'js',
-                specNameMatcher: 'spec',
+                specNameMatcher: 'node-spec',
+                specFolders: ['tests/specs/server'],
                 jUnit: {
                     report: true,
                     savePath : "./build/reports/jasmine/",
@@ -50,6 +68,7 @@ module.exports = function(grunt){
                     consolidate: true
                 }
             },
+            server: ['tests/specs/server'],
             all: ['tests/specs/server/']
         },
         jade: {
@@ -68,6 +87,15 @@ module.exports = function(grunt){
             dist: {
                 files: {
                     'public/js/bundle.js': ['public/js/main.js']
+                }
+            },
+            test: {
+                src: [  'tests/specs/client/*.js'
+                ],
+                dest: 'tests/dist/test_bundle.js',
+                options: {
+                    //external: ['public/js/**/*.js'],
+                    ignore: ['public/node_modules/underscore/underscore.js']
                 }
             }
         },
@@ -122,6 +150,8 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task(s).
-    grunt.registerTask('default', ['jshint:all', 'jasmine', 'jasmine_node', 'jade', 'browserify', 'uglify']);
+    grunt.registerTask('default', ['jshint:all', 'jasmine_node:server', 'jade', 'browserify', 'uglify']);
+    grunt.registerTask('notest', ['jshint:all', 'jade', 'browserify', 'uglify', 'cssmin']);
     grunt.registerTask('toprod', ['jade', 'browserify', 'uglify', 'cssmin']);
+    grunt.registerTask('newTest', ['browserify', 'jasmine:new']);
 };

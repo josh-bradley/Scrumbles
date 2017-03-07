@@ -1,9 +1,12 @@
 describe('item.cardSelected', function(){
     var sandbox;
+    var page;
+    var helpers = require('../../helpers/clientTestHelper');
+    var pageConstructor = require('../../../public/js/page');
 
     beforeEach(function(){
         sandbox = sinon.sandbox.create();
-        Scrumbles.page = new Scrumbles.page.constructor();
+        page = new pageConstructor.constructor();
     });
 
     afterEach(function(){
@@ -11,11 +14,10 @@ describe('item.cardSelected', function(){
     });
 
     it('should set players card value', function(){
-        var page = Scrumbles.page;
-        var expected = '5';
+        var expected = '8';
         page.room.players.add({playerName:'Bob', card:'8'});
 
-        Scrumbles.helpers.itemCardSelectedHandler({playerName:'Bob', card:expected});
+        helpers.itemCardSelectedHandler(page, {playerName:'Bob', card:expected});
 
         expect(page.room.players()[0].card()).toBe(expected);
     });

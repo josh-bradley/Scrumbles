@@ -1,9 +1,12 @@
 describe('player.new', function(){
     var sandbox;
+    var helpers = require('../../helpers/clientTestHelper');
+    var pageConstructor = require('../../../public/js/page');
+    var page;
 
     beforeEach(function(){
         sandbox = sinon.sandbox.create();
-        Scrumbles.page = new Scrumbles.page.constructor();
+        page = new pageConstructor.constructor();
     });
 
     afterEach(function(){
@@ -11,14 +14,14 @@ describe('player.new', function(){
     });
 
     it('should set new player name', function(){
-        Scrumbles.helpers.playerNewHandler({playerName:'bob', card:'8'});
+        helpers.playerNewHandler(page, {playerName:'bob', card:'8'});
 
-        expect(Scrumbles.page.room.players()[0].playerName()).toBe('bob');
+        expect(page.room.players()[0].playerName()).toBe('bob');
     });
 
     it('should set new player card', function(){
-        Scrumbles.helpers.playerNewHandler({playerName:'bob', card:'8'});
+        helpers.playerNewHandler(page, {playerName:'bob', card:'8'});
 
-        expect(Scrumbles.page.room.players()[0].card()).toBe('8');
+        expect(page.room.players()[0].card()).toBe('8');
     });
 });

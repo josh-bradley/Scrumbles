@@ -1,67 +1,70 @@
 describe('join room success', function(){
     var sandbox;
+    var helpers = require('../../helpers/clientTestHelper');
+    var pageConstructor = require('../../../public/js/page');
+    var page;
 
     beforeEach(function(){
         sandbox = sinon.sandbox.create();
+        page = new pageConstructor.constructor();
     });
 
     afterEach(function(){
         sandbox.restore();
-        Scrumbles.page = new Scrumbles.page.constructor();
     });
 
     it('should clear the loading message', function(){
-        var spy = sandbox.spy(Scrumbles.page.loadMessageViewModel, 'clearMessage');
+        var spy = sandbox.spy(page.loadMessageViewModel, 'clearMessage');
 
-        Scrumbles.helpers.joinRoomConfirmSuccess({room:{}});
+        helpers.joinRoomConfirmSuccess(page, {room:{}});
 
         expect(spy.callCount).toBe(1);
     });
 
     it('should add listener for player.new', function(){
-        var spy = sandbox.spy(Scrumbles.mocks.socketMock, 'on');
+        var spy = sandbox.spy(socketMock, 'on');
 
-        Scrumbles.helpers.joinRoomConfirmSuccess({room:{}});
+        helpers.joinRoomConfirmSuccess(page, {room:{}});
 
         expect(spy.calledWith('player.new')).toBe(true);
     });
 
     it('should add listener for item.estimateStarted', function(){
-        var spy = sandbox.spy(Scrumbles.mocks.socketMock, 'on');
+        var spy = sandbox.spy(socketMock, 'on');
 
-        Scrumbles.helpers.joinRoomConfirmSuccess({room:{}});
+        helpers.joinRoomConfirmSuccess(page, {room:{}});
 
         expect(spy.calledWith('item.estimateStarted')).toBe(true);
     });
 
     it('should add listener for item.cardSelected', function(){
-        var spy = sandbox.spy(Scrumbles.mocks.socketMock, 'on');
+        var spy = sandbox.spy(socketMock, 'on');
 
-        Scrumbles.helpers.joinRoomConfirmSuccess({room:{}});
+        helpers.joinRoomConfirmSuccess(page, {room:{}});
 
         expect(spy.calledWith('item.cardSelected')).toBe(true);
     });
 
     it('should add listener for item.showCardsNow', function(){
-        var spy = sandbox.spy(Scrumbles.mocks.socketMock, 'on');
+        var spy = sandbox.spy(socketMock, 'on');
 
-        Scrumbles.helpers.joinRoomConfirmSuccess({room:{}});
+        helpers.joinRoomConfirmSuccess(page, {room:{}});
 
         expect(spy.calledWith('item.showCardsNow')).toBe(true);
     });
 
     it('should add listener for item.finishReview', function(){
-        var spy = sandbox.spy(Scrumbles.mocks.socketMock, 'on');
+        var spy = sandbox.spy(socketMock, 'on');
 
-        Scrumbles.helpers.joinRoomConfirmSuccess({room:{}});
+        helpers.joinRoomConfirmSuccess(page, {room:{}});
 
         expect(spy.calledWith('item.finishReview')).toBe(true);
     });
 
     it('should add listener for player.leave', function(){
-        var spy = sandbox.spy(Scrumbles.mocks.socketMock, 'on');
+        var spy = sandbox.spy(socketMock, 'on');
 
-        Scrumbles.helpers.joinRoomConfirmSuccess({room:{}});
+        helpers.joinRoomConfirmSuccess(page, {room:{}});
 
         expect(spy.calledWith('player.leave')).toBe(true);
     });
@@ -69,55 +72,55 @@ describe('join room success', function(){
     it('should set room name', function(){
         var expected = 'test';
 
-        Scrumbles.helpers.joinRoomConfirmSuccess({room:{ roomName: expected}});
+        helpers.joinRoomConfirmSuccess(page, {room:{ roomName: expected}});
 
-        expect(Scrumbles.page.room.name()).toBe(expected);
+        expect(page.room.name()).toBe(expected);
     });
 
     it('should set player name', function(){
         var expected = 'test';
 
-        Scrumbles.helpers.joinRoomConfirmSuccess({room:{ }, playerName: expected});
+        helpers.joinRoomConfirmSuccess(page, {room:{ }, playerName: expected});
 
-        expect(Scrumbles.page.room.playerName()).toBe(expected);
+        expect(page.room.playerName()).toBe(expected);
     });
 
     it('should set status', function(){
         var expected = 'test';
 
-        Scrumbles.helpers.joinRoomConfirmSuccess({room:{ status:expected }});
+        helpers.joinRoomConfirmSuccess(page, {room:{ status:expected }});
 
-        expect(Scrumbles.page.room.status()).toBe(expected);
+        expect(page.room.status()).toBe(expected);
     });
 
     it('should set status', function(){
         var expected = 'test';
 
-        Scrumbles.helpers.joinRoomConfirmSuccess({room:{ status:expected }});
+        helpers.joinRoomConfirmSuccess(page, {room:{ status:expected }});
 
-        expect(Scrumbles.page.room.status()).toBe(expected);
+        expect(page.room.status()).toBe(expected);
     });
 
     it('should set isOwner', function(){
-        Scrumbles.helpers.joinRoomConfirmSuccess({room:{ }, wasCreate:true });
+        helpers.joinRoomConfirmSuccess(page, {room:{ }, wasCreate:true });
 
-        expect(Scrumbles.page.room.isOwner()).toBe(true);
+        expect(page.room.isOwner()).toBe(true);
     });
 
     it('should set itemName', function(){
         var expected = 'test';
 
-        Scrumbles.helpers.joinRoomConfirmSuccess({room:{ itemName:expected }});
+        helpers.joinRoomConfirmSuccess(page, {room:{ itemName:expected }});
 
-        expect(Scrumbles.page.room.itemName()).toBe(expected);
+        expect(page.room.itemName()).toBe(expected);
     });
 
     it('should set itemName', function(){
         var expected = 'ted';
 
-        Scrumbles.helpers.joinRoomConfirmSuccess({room:{ players:{ted:{playerName:expected}}}});
+        helpers.joinRoomConfirmSuccess(page, {room:{ players:{ted:{playerName:expected}}}});
 
-        expect(Scrumbles.page.room.players().length).toBe(1);
-        expect(Scrumbles.page.room.players()[0].playerName()).toBe(expected);
+        expect(page.room.players().length).toBe(1);
+        expect(page.room.players()[0].playerName()).toBe(expected);
     });
 });

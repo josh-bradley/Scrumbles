@@ -9,22 +9,25 @@
   "author": "Joshua.Bradley",
   "license": "ISC",
   "dependencies": {
-    "socket.io": "^0.9.16",
+    "socket.io": "^1.7.3",
     "express": "^4.1.1",
     "underscore": "^1.6.0"
   },
   "devDependencies": {
-    "grunt": "^0.4.4",
-    "grunt-browserify": "^3.3.0",
-    "grunt-contrib-csslint": "^0.2.0",
-    "grunt-contrib-cssmin": "^0.11.0",
-    "grunt-contrib-jade": "^0.14.1",
-    "grunt-contrib-jasmine": "^0.8.2",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-nodeunit": "^0.3.3",
-    "grunt-contrib-uglify": "^0.7.0",
-    "grunt-jasmine-node": "^0.2.1",
-    "mockery": "^1.4.0",
-    "sinon": "^1.9.1"
+    "bufferutil": "^3.0.0",
+    "grunt": "^1.0.1",
+    "grunt-browserify": "^5.0.0",
+    "grunt-contrib-csslint": "^2.0.0",
+    "grunt-contrib-cssmin": "^2.0.0",
+    "grunt-contrib-jade": "^1.0.0",
+    "grunt-contrib-jasmine": "^1.1.0",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-nodeunit": "^1.0.0",
+    "grunt-contrib-uglify": "^2.2.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-jasmine-node": "^0.3.1",
+    "mockery": "^2.0.0",
+    "sinon": "^1.9.1",
+    "utf-8-validate": "^3.0.1"
   }
 }

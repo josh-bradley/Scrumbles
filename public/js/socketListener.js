@@ -1,9 +1,7 @@
 module.exports = (function(){
     var socketManager = require('./socketManager.js');
     var notify = require('./notify.js');
-    function init(){
-        var viewModel = require('./page.js');
-
+    function init(viewModel){
         var socket = socketManager.getSocket();
 
         socket.on('player.new', function(data){

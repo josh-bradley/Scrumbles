@@ -1,11 +1,8 @@
-var Scrumbles = Scrumbles || {};
-Scrumbles.mocks = Scrumbles.mocks || {};
-    Scrumbles.mocks.socketMock = { on: function(){}, emit: function(){}, once: function(){} };
-
+var socketMock = { on: function(){}, emit: function(){}, once: function(){} };
 var io = {
-    connect: function(){
-        return Scrumbles.mocks.socketMock
+    connect: function(str){
+        return socketMock;
     }
 };
 
-Scrumbles.socketManager.connect();
+io.connect();

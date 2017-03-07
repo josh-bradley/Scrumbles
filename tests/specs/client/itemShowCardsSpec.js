@@ -1,9 +1,13 @@
 describe('item.estimateStarted', function(){
     var sandbox;
+    var helpers = require('../../helpers/clientTestHelper');
+    var pageStatus = require('../../../public/js/pageStatus');
+    var pageConstructor = require('../../../public/js/page');
+    var page;
 
     beforeEach(function(){
         sandbox = sinon.sandbox.create();
-        Scrumbles.page = new Scrumbles.page.constructor();
+        page = new pageConstructor.constructor();
     });
 
     afterEach(function(){
@@ -11,9 +15,9 @@ describe('item.estimateStarted', function(){
     });
 
     it('should status to REVIEW', function(){
-        Scrumbles.helpers.itemShowCardsHandler();
+        helpers.itemShowCardsHandler(page);
 
-        expect(Scrumbles.page.room.status()).toBe(Scrumbles.pageStatus.REVIEW);
+        expect(page.room.status()).toBe(pageStatus.REVIEW);
     });
 
 });

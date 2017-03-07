@@ -1,11 +1,13 @@
 describe('item.initiateItemEstimate', function(){
     var sandbox;
-    var initiateItemEstimate = Scrumbles.helpers.initiateItemEstimate;
+    var socketMock = require('../../helpers/clientSideMocks').socketMock;
+    var initiateItemEstimate = require('../../helpers/clientTestHelper').initiateItemEstimate;
+    var pageConstructor = require('../../../public/js/page');
+    var page;
 
     beforeEach(function(){
         sandbox = sinon.sandbox.create();
-        Scrumbles.page = new Scrumbles.page.constructor();
-
+        page = new pageConstructor.constructor();
     });
 
     afterEach(function(){
@@ -13,17 +15,17 @@ describe('item.initiateItemEstimate', function(){
     });
 
     it('should emit item.startEstimate', function(){
-        var spy = sandbox.spy(Scrumbles.mocks.socketMock, 'emit');
+        var spy = sandbox.spy(socketMock, 'emit');
 
-        initiateItemEstimate();
+        initiateItemEstimate(page);
 
         expect(spy.getCall(0).args[0]).toBe('item.startEstimate');
     });
 
     it('should emit item.startEstimate with item name', function(){
-        var spy = sandbox.spy(Scrumbles.mocks.socketMock, 'emit');
+        var spy = sandbox.spy(socketMock, 'emit');
 
-        initiateItemEstimate('task one');
+        initiateItemEstimate(page, 'task one');
 
         expect(spy.getCall(0).args[1].itemName).toBe('task one');
     });

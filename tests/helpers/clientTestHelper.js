@@ -1,22 +1,23 @@
-var Scrumbles = Scrumbles || {};
-Scrumbles.helpers = Scrumbles.helpers || {};
+var helper = {};
 
+var fakeEventObject = { };
+var socketMock = require('./clientSideMocks').socketMock;
+var roomService = require('../../public/js/service/roomService');
+var getCallByArgs = require('./sinonExtentions').getCallByArgs;
 
-Scrumbles.helpers.createRoom = function(roomName, playerName){
+helper.createRoom = function(page, roomName, playerName){
     roomName = roomName || 'test';
     playerName = playerName || 'bob';
-    var page = Scrumbles.page;
 
     page.joinRoomViewModel.roomName(roomName);
     page.joinRoomViewModel.playerName(playerName);
 
-    page.createRoomRequest();
+    page.createRoomRequest({}, fakeEventObject);
 };
 
-Scrumbles.helpers.joinRoom = function(roomName, playerName){
+helper.joinRoom = function(page, roomName, playerName){
     roomName = roomName || 'test';
     playerName = playerName || 'bob';
-    var page = Scrumbles.page;
 
     page.joinRoomViewModel.roomName(roomName);
     page.joinRoomViewModel.playerName(playerName);
@@ -24,78 +25,78 @@ Scrumbles.helpers.joinRoom = function(roomName, playerName){
     page.joinRoomRequest();
 };
 
-Scrumbles.helpers.joinRoomConfirm = function(roomName, playerName, success, error, data){
-    var spy = sinon.spy(Scrumbles.mocks.socketMock, 'once');
+helper.joinRoomConfirm = function(roomName, playerName, success, error, data){
+    var spy = sinon.spy(socketMock, 'once');
 
-    Scrumbles.Service.roomService.joinRoom(roomName, playerName, success, error);
+    roomService.joinRoom(roomName, playerName, success, error);
 
     var call = spy.getCall(0);
     call.args[1](data);
-    Scrumbles.mocks.socketMock.once.restore();
+    socketMock.once.restore();
 };
 
-Scrumbles.helpers.joinRoomConfirmSuccess = function(data){
-    var spy = sinon.spy(Scrumbles.Service.roomService, 'joinRoom');
+helper.joinRoomConfirmSuccess = function(page, data){
+    var spy = sinon.spy(roomService, 'joinRoom');
 
-    Scrumbles.page.joinRoomViewModel.roomName('test');
-    Scrumbles.page.joinRoomViewModel.playerName('ted');
-    Scrumbles.page.joinRoomRequest();
+    page.joinRoomViewModel.roomName('test');
+    page.joinRoomViewModel.playerName('ted');
+    page.joinRoomRequest();
 
     spy.getCall(0).args[2](data);
     spy.restore();
 };
 
-Scrumbles.helpers.joinRoomConfirmFailure = function(data){
-    var spy = sinon.spy(Scrumbles.Service.roomService, 'joinRoom');
+helper.joinRoomConfirmFailure = function(page, data){
+    var spy = sinon.spy(roomService, 'joinRoom');
 
-    Scrumbles.page.joinRoomViewModel.roomName('test');
-    Scrumbles.page.joinRoomViewModel.playerName('ted');
-    Scrumbles.page.joinRoomRequest();
+    page.joinRoomViewModel.roomName('test');
+    page.joinRoomViewModel.playerName('ted');
+    page.joinRoomRequest();
 
     spy.getCall(0).args[3](data);
     spy.restore();
 };
 
-Scrumbles.helpers.initiateItemEstimate = function(itemName){
-    var page = Scrumbles.page;
-
+helper.initiateItemEstimate = function(page, itemName){
     page.joinRoomViewModel.roomName('test');
     page.joinRoomViewModel.playerName('bob');
     page.room.itemName(itemName || 'task');
 
-    page.initiateItemEstimate();
+    page.initiateItemEstimate({}, {});
 };
 
-Scrumbles.helpers.playerNewHandler = function(data){
-    getSocketListenerHandler('player.new')(data);
+helper.playerNewHandler = function(page, data){
+    getSocketListenerHandler(page, 'player.new')(data);
 };
 
-Scrumbles.helpers.itemEstimateStartedHandler = function(data){
-    getSocketListenerHandler('item.estimateStarted')(data);
+helper.itemEstimateStartedHandler = function(page, data){
+    getSocketListenerHandler(page, 'item.estimateStarted')(data);
 };
 
-Scrumbles.helpers.itemCardSelectedHandler = function(data){
-    getSocketListenerHandler('item.cardSelected')(data);
+helper.itemCardSelectedHandler = function(page, data){
+    getSocketListenerHandler(page, 'item.cardSelected')(data);
 };
 
-Scrumbles.helpers.itemShowCardsHandler = function(data){
-    getSocketListenerHandler('item.showCardsNow')(data);
+helper.itemShowCardsHandler = function(page, data){
+    getSocketListenerHandler(page, 'item.showCardsNow')(data);
 };
 
-Scrumbles.helpers.itemFinishReviewHandler = function(data){
-    getSocketListenerHandler('item.finishReview')(data);
+helper.itemFinishReviewHandler = function(page, data){
+    getSocketListenerHandler(page, 'item.finishReview')(data);
 };
 
-Scrumbles.helpers.playerLeaveHandler = function(data){
-    getSocketListenerHandler('player.leave')(data);
+helper.playerLeaveHandler = function(page, data){
+    getSocketListenerHandler(page, 'player.leave')(data);
 };
 
-function getSocketListenerHandler(handlerName){
-    var spy = sinon.spy(Scrumbles.mocks.socketMock, 'on');
+function getSocketListenerHandler(page, handlerName){
+    var spy = sinon.spy(socketMock, 'on');
 
-    Scrumbles.socketListener.init();
-    var handler = sinon.getCallByArgs(spy, handlerName);
+    require('../../public/js/socketListener').init(page);
+    var handler = getCallByArgs(spy, handlerName);
 
-    Scrumbles.mocks.socketMock.on.restore();
+    socketMock.on.restore();
     return handler;
 }
+
+module.exports = helper;

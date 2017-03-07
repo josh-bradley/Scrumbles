@@ -1,11 +1,15 @@
 describe('join room', function(){
     var sandbox;
-    var joinRoom = Scrumbles.helpers.joinRoom;
+    var helpers = require('../../helpers/clientTestHelper');
+    var socketMock = require('../../helpers/clientSideMocks').socketMock;
+    var roomService = require('../../../public/js/service/roomService');
+    var joinRoom = helpers.joinRoom;
+    var pageConstructor = require('../../../public/js/page');
+    var page;
 
     beforeEach(function(){
         sandbox = sinon.sandbox.create();
-        Scrumbles.page = new Scrumbles.page.constructor();
-
+        page = new pageConstructor.constructor();
     });
 
     afterEach(function(){
@@ -13,7 +17,7 @@ describe('join room', function(){
     });
 
     it('should set loading message', function(){
-        var spy = sandbox.spy(Scrumbles.page.loadMessageViewModel, 'message');
+        var spy = sandbox.spy(page.loadMessageViewModel, 'message');
 
         joinRoom();
 
@@ -21,16 +25,16 @@ describe('join room', function(){
     });
 
     it('should call roomService.joinRoom when valid', function(){
-       var spy = sandbox.spy(Scrumbles.Service.roomService, 'joinRoom');
+       var spy = sandbox.spy(roomService, 'joinRoom');
        joinRoom();
 
        expect(spy.callCount).toBe(1);
     });
 
     it('should not call roomService.joinRoom when room name not supplied', function(){
-        var spy = sandbox.spy(Scrumbles.Service.roomService, 'joinRoom');
+        var spy = sandbox.spy(roomService, 'joinRoom');
 
-        var page = new Scrumbles.page.constructor();
+        var page = new page.constructor();
         page.joinRoomViewModel.playerName('Bob');
         page.joinRoomRequest();
 
@@ -38,9 +42,9 @@ describe('join room', function(){
     });
 
     it('should not call roomService.joinRoom when playerName not supplied', function(){
-        var spy = sandbox.spy(Scrumbles.Service.roomService, 'joinRoom');
+        var spy = sandbox.spy(roomService, 'joinRoom');
 
-        var page = new Scrumbles.page.constructor();
+        var page = new page.constructor();
         page.joinRoomViewModel.roomName('Bob');
         page.joinRoomRequest();
 
@@ -48,14 +52,14 @@ describe('join room', function(){
     });
 
     it('should emit room.join', function(){
-        var spy = sandbox.spy(Scrumbles.mocks.socketMock, 'emit');
+        var spy = sandbox.spy(socketMock, 'emit');
         joinRoom();
 
         expect(spy.getCall(0).args[0]).toBe('room.join');
     });
 
     it('should emit room.join with correct room name', function(){
-        var spy = sandbox.spy(Scrumbles.mocks.socketMock, 'emit');
+        var spy = sandbox.spy(socketMock, 'emit');
         var expected = 'room1';
         joinRoom(expected);
 
@@ -63,7 +67,7 @@ describe('join room', function(){
     });
 
     it('should emit room.join with correct player name', function(){
-        var spy = sandbox.spy(Scrumbles.mocks.socketMock, 'emit');
+        var spy = sandbox.spy(socketMock, 'emit');
         var expected = 'tim';
         joinRoom('test', expected);
 
@@ -71,14 +75,14 @@ describe('join room', function(){
     });
 
     it('should emit room.join with isCreate set to false', function(){
-        var spy = sandbox.spy(Scrumbles.mocks.socketMock, 'emit');
+        var spy = sandbox.spy(socketMock, 'emit');
         joinRoom();
 
         expect(spy.getCall(0).args[1].isCreateRequest).toBe(false);
     });
 
     it('should attach on room.joinConfirm', function(){
-        var spy = sandbox.spy(Scrumbles.mocks.socketMock, 'once');
+        var spy = sandbox.spy(socketMock, 'once');
         joinRoom();
 
         expect(spy.calledWith('room.joinConfirm')).toBe(true);

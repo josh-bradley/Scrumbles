@@ -1,12 +1,12 @@
-var Scrumbles = Scrumbles || { };
-Scrumbles.test = Scrumbles.test || {}
-Scrumbles.test.mocks = (function(){
+module.exports = (function(){
     var cardTableMock = {init: function(){}, addPlayer: function(){}};
 
     var templatesMock = { getEmptyCardSlotTemplate: function(){ return function(){};}};
 
+    var socketMock = io.connect();
     return {
         cardTable: cardTableMock,
-        templates: templatesMock
+        templates: templatesMock,
+        socketMock: socketMock
     };
 })();
