@@ -1,0 +1,6 @@
+template#game-card
+    .cardPlaceHolder(data-bind='css: { hasCard : card }')
+        .emptyCard
+            .innerCard(data-bind='visible: showCard')
+                span.cardNumber(data-bind='text: card')
+        span.cardPlayerName(data-bind='text: label')

@@ -10,11 +10,8 @@
             br
             span(data-bind='text: room.itemName')
          .col-md-3.itemTitle(style='margin-top:0.8em', data-bind='visible: room.isStatusInGame() || room.isStatusReview()')
-             .cardPlaceHolder(data-bind='css: { hasCard : selectedCard }')
-                 .emptyCard
-                     .innerCard(data-bind='visible: selectedCard')
-                         span.cardNumber(data-bind='text: selectedCard')
-                 span.cardPlayerName(data-bind='text: me.playerName')
+            game-card(params='showCard: selectedCard, card: selectedCard, label: me.playerName')
+
          select#cardSelector.fullWidth.selectCard(data-bind="value: selectedCard,\
              event: { change: cardSelected },\
              options: cards,\
@@ -32,8 +29,4 @@
             input.fullWidth(type='button', value='Done', data-bind='hasFocus: room.isStatusReview, click: initiateEndReview, visible: room.isOwner() && room.isStatusReview()')
    .row.card-table(data-bind='visible: !room.isStatusWaiting()')
       #cardTable.col-md-8(data-bind='foreach: room.players, css: statusClass')
-         .cardPlaceHolder(data-bind='css: { hasCard : card() }')
-            .emptyCard
-               .innerCard(data-bind='visible: $parent.room.isStatusReview')
-                  span.cardNumber(data-bind='text: card')
-            span.cardPlayerName(data-bind='text: playerName')
+         game-card(params='showCard: $parent.room.isStatusReview, card: card, label: playerName')
