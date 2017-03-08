@@ -1,4 +1,5 @@
 module.exports = function(){
+    var requiredValidator = require('./customValidators/customValidators').requiredValidator;
     var self = this;
 
     this.playerNameErrorMessage = ko.observable();
@@ -6,15 +7,21 @@ module.exports = function(){
     this.errorField = ko.observable('');
 
     this.roomName = ko.observable()
-        .extend({ required:{message:'Room Name required'} })
-        .extend({validation:{
-            validator:function(){
-                return !self.errorField || self.errorField() !== 'roomName';
-            },
-            message: 'Room name already in use.'
-        }});
+                        .extend({validation:{
+                            validator: requiredValidator,
+                            message: 'Room name required'
+                        }})
+                        .extend({validation:{
+                            validator:function(){
+                                return !self.errorField || self.errorField() !== 'roomName';
+                            },
+                            message: 'Room name already in use.'
+                        }});
     this.playerName = ko.observable()
-                            .extend({ required:{ message:'Name required' }  })
+                            .extend({validation:{
+                                validator: requiredValidator,
+                                message: 'Player name required'
+                            }})
                             .extend({validation:{
                                 validator:function(){
                                     return !self.errorField || self.errorField() !== 'playerName';

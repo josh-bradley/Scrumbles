@@ -25,12 +25,11 @@ module.exports = (function(){
     }
 
     function createRoomRequest(model, e){
-        this.joinRoomViewModel.errorField(null);
-
         if(e.keyCode && e.keyCode !== 13){
             return;
         }
 
+        this.joinRoomViewModel.errorField(null);
         if(!this.joinRoomViewModel.isValid()){
             this.joinRoomViewModel.errors.showAllMessages();
             return;

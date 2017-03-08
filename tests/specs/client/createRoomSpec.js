@@ -35,17 +35,17 @@ describe('create room', function(){
         var spy = sandbox.spy(roomService, 'createRoom');
         var page = new pageConstructor.constructor();
         page.joinRoomViewModel.playerName('Bob');
-
+        page.joinRoomViewModel.roomName('');
         page.createRoomRequest({}, {});
 
         expect(spy.callCount).toBe(0);
     });
 
-    it('should not call roomService.createRoom when room name not supplied', function(){
+    it('should not call roomService.createRoom when player name not supplied', function(){
         var spy = sandbox.spy(roomService, 'createRoom');
         var page = new pageConstructor.constructor();
         page.joinRoomViewModel.roomName('RoomONe');
-
+        page.joinRoomViewModel.playerName('');
         page.createRoomRequest({}, {});
 
         expect(spy.callCount).toBe(0);

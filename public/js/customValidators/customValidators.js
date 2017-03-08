@@ -1,0 +1,1 @@
+module.exports.requiredValidator = function(val) { return val && val.length > 0; }
