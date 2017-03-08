@@ -2,7 +2,6 @@ module.exports = (function(){
     var pageStatus = require('./pageStatus.js');
     var roomService = require('./service/roomService.js');
     var notify = require('./notify.js');
-    //var page = require('./page.js');
     var Room = require('./room.js');
     var gameService = require('./service/gameService.js');
     var socketListener = require('./socketListener.js');
@@ -133,6 +132,17 @@ module.exports = (function(){
             }
 
         }, true);
+
+        this.isSelectingCard = ko.observable(false);
+        this.openCardSelection = function(){
+            if(this.room.isStatusInGame())
+                this.isSelectingCard(!this.isSelectingCard());
+        }.bind(this);
+        this.playerSelectsCard = function(card){
+            this.selectedCard(card);
+            this.isSelectingCard(false);
+            this.cardSelected(card);
+        }.bind(this);
 
         this.anyCardsDown = ko.computed(function(){
             return undefined !== _.find(self.room.players(), function(player){

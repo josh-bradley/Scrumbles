@@ -15,9 +15,9 @@ module.exports = (function(){
         socket.emit('item.finishReviewRequest', {});
     }
 
-    function cardSelected(){
+    function cardSelected(card){
         var socket = socketManager.getSocket();
-        socket.emit('item.cardSelect', { card: this.selectedCard() });
+        socket.emit('item.cardSelect', { card: card });
     }
 
     return {

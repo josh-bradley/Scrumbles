@@ -78,6 +78,13 @@ module.exports = function(grunt){
         },
         watch: {
             scripts: {
+                files: ['public/js/*.js'],
+                tasks: ['browserify', 'uglify'],
+                opitons: {
+                    spawn: false
+                }
+            },
+            pug: {
                 files: ['public/templates/*.pug'],
                 tasks: ['pug'],
                 options: {
