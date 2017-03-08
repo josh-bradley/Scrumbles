@@ -14,7 +14,6 @@
     "underscore": "^1.6.0"
   },
   "devDependencies": {
-    "bufferutil": "^3.0.0",
     "grunt": "^1.0.1",
     "grunt-browserify": "^5.0.0",
     "grunt-contrib-csslint": "^2.0.0",
@@ -27,7 +26,6 @@
     "grunt-contrib-watch": "^1.0.0",
     "grunt-jasmine-node": "^0.3.1",
     "mockery": "^2.0.0",
-    "sinon": "^1.9.1",
-    "utf-8-validate": "^3.0.1"
+    "sinon": "^1.9.1"
   }
 }
