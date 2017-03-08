@@ -28,7 +28,7 @@ module.exports = function(grunt){
         jasmine_node: {
             projectRoot: "tests/specs/server"
         },
-        jade: {
+        pug: {
             compile: {
                 options: {
                     data: {
@@ -36,7 +36,7 @@ module.exports = function(grunt){
                     }
                 },
                 files: {
-                    "public/Index.html": ["public/templates/Index.jade"]
+                    "public/Index.html": ["public/templates/Index.pug"]
                 }
             }
         },
@@ -78,8 +78,8 @@ module.exports = function(grunt){
         },
         watch: {
             scripts: {
-                files: ['public/templates/*.jade'],
-                tasks: ['jade'],
+                files: ['public/templates/*.pug'],
+                tasks: ['pug'],
                 options: {
                     spawn: false
                 }
@@ -99,7 +99,7 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-jasmine-node');
     grunt.loadNpmTasks('grunt-contrib-csslint');
-    grunt.loadNpmTasks('grunt-contrib-jade');
+    grunt.loadNpmTasks('grunt-contrib-pug');
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
@@ -107,7 +107,7 @@ module.exports = function(grunt){
 
     // Default task(s).
     grunt.registerTask('test', ['browserify', 'jasmine:all', 'jasmine_node']);
-    grunt.registerTask('default', ['jshint:all', 'jade', 'browserify', 'jasmine:all', 'jasmine_node', 'uglify', 'cssmin']);
-    grunt.registerTask('notest', ['jshint:all', 'jade', 'browserify', 'uglify', 'cssmin']);
-    grunt.registerTask('toprod', ['jade', 'browserify', 'uglify', 'cssmin']);
+    grunt.registerTask('default', ['jshint:all', 'pug', 'browserify', 'jasmine:all', 'jasmine_node', 'uglify', 'cssmin']);
+    grunt.registerTask('notest', ['jshint:all', 'pug', 'browserify', 'uglify', 'cssmin']);
+    grunt.registerTask('toprod', ['pug', 'browserify', 'uglify', 'cssmin']);
 };

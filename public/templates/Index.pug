@@ -1,13 +1,13 @@
 doctype html
 html
    head
-      include ./Head.jade
+      include Head
    body
       h1(data-bind='visible: room.isStatusInit') Scrumbles
       p(style='text-align:center;font-family: sans-serif', data-bind='visible: room.isStatusInit') Online scrumb poker
-      include ./Start.jade
-      include ./Room.jade
-      include ./Modal.jade
+      include Start
+      include Room
+      include Modal
       script(src='/lib/alertify.js/lib/alertify.min.js')
       script(src='/lib/underscore/underscore-min.js')
       script(src='/lib/knockout/dist/knockout.js')
