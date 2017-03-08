@@ -26,22 +26,7 @@ module.exports = function(grunt){
             }
         },
         jasmine_node: {
-            options: {
-                forceExit: true,
-                match: '.',
-                matchall: false,
-                extensions: 'js',
-                specNameMatcher: 'node-spec',
-                specFolders: ['tests/specs/server'],
-                jUnit: {
-                    report: true,
-                    savePath : "./build/reports/jasmine/",
-                    useDotNotation: true,
-                    consolidate: true
-                }
-            },
-            server: ['tests/specs/server'],
-            all: ['tests/specs/server/']
+            projectRoot: "tests/specs/server"
         },
         jade: {
             compile: {
@@ -121,8 +106,8 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task(s).
-    grunt.registerTask('test', ['browserify', 'jasmine:all']);
-    grunt.registerTask('default', ['jshint:all', 'jade', 'browserify', 'jasmine:all', 'uglify', 'cssmin']);
+    grunt.registerTask('test', ['browserify', 'jasmine:all', 'jasmine_node']);
+    grunt.registerTask('default', ['jshint:all', 'jade', 'browserify', 'jasmine:all', 'jasmine_node', 'uglify', 'cssmin']);
     grunt.registerTask('notest', ['jshint:all', 'jade', 'browserify', 'uglify', 'cssmin']);
     grunt.registerTask('toprod', ['jade', 'browserify', 'uglify', 'cssmin']);
 };

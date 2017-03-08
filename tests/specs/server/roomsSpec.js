@@ -14,7 +14,8 @@ describe('rooms', function(){
 
     describe('doesRoomExist', function(){
         it('should return true if room exists', function(){
-            var room = rooms.createRoom('room3');
+            rooms.closeRoom('room3');
+            rooms.createRoom('room3');
 
             expect(rooms.doesRoomExist('room3')).toBeTruthy();
         });
