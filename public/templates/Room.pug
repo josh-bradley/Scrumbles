@@ -3,8 +3,9 @@
       .col-md-7.itemTitle
          h2(data-bind='text: room.name')
    hr
-   div(data-bind='visible: isSelectingCard')
-      include CardSelection
+   div.row(data-bind='visible: isSelectingCard')
+      .col-xs-12
+         include CardSelection
    div(data-bind='visible: !isSelectingCard()')
       .row.task-details(data-bind='visible: showGameTitle')
          .col-md-3.col-md-offset-3.itemTitle(style='margin-top:0.8em')
@@ -23,6 +24,6 @@
          .col-md-offset-3.col-md-6
             input#showCards.fullWidth(type='button', value='Show Cards', data-bind="click: initiateReview, style: { visibility: room.isOwner() && anyCardsDown() && room.isStatusInGame() ? 'visible' : 'hidden'}, visible: room.isStatusInGame")
             input.fullWidth(type='button', value='Done', data-bind='hasFocus: room.isStatusReview, click: initiateEndReview, visible: room.isOwner() && room.isStatusReview()')
-   .row.card-table(data-bind='visible: !room.isStatusWaiting()')
+   div.row.card-table(data-bind='visible: !room.isStatusWaiting() && !isSelectingCard()')
       #cardTable.col-md-8(data-bind='foreach: room.players, css: statusClass')
          game-card(params='showCard: $parent.room.isStatusReview, card: card, label: playerName')
