@@ -116,5 +116,5 @@ module.exports = function(grunt){
     grunt.registerTask('test', ['browserify', 'jasmine:all', 'jasmine_node']);
     grunt.registerTask('default', ['jshint:all', 'pug', 'browserify', 'jasmine:all', 'jasmine_node', 'uglify', 'cssmin']);
     grunt.registerTask('notest', ['jshint:all', 'pug', 'browserify', 'uglify', 'cssmin']);
-    grunt.registerTask('toprod', ['pug', 'browserify', 'uglify', 'cssmin']);
+    grunt.registerTask('build', ['pug', 'browserify', 'uglify', 'cssmin']);
 };
