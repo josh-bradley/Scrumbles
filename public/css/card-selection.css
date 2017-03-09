@@ -1,0 +1,17 @@
+.cardselection-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width:640px;
+    margin: 0 auto;
+}
+
+@media (min-width: 390px) and (max-width: 490px) {
+    .cardselection-container {
+        max-width: 360px;
+    }
+}
+
+game-card {
+    /*width: 25%;*/
+}
