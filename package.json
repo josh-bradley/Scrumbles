@@ -12,12 +12,12 @@
   "dependencies": {
     "socket.io": "^1.7.3",
     "express": "^4.1.1",
-    "underscore": "^1.6.0"
+    "underscore": "^1.6.0",
+    "grunt-cli": "^1.2.0"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-browserify": "^5.0.0",
-    "grunt-cli": "^1.2.0",
     "grunt-contrib-csslint": "^2.0.0",
     "grunt-contrib-cssmin": "^2.0.0",
     "grunt-contrib-jasmine": "^1.1.0",
