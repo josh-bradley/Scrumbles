@@ -9,10 +9,10 @@ function start(publicDir){
     var app = express();
     var server = http.createServer(app);
     var io = socket_io.listen(server);
-    var port = process.env.PORT || 3001;
+    var port = process.env.port || 3001;
 
     server.listen(port, function () {
-        console.log('the env.PORT was ' + process.env.PORT)
+        console.log('the env.PORT was ' + process.env.port)
         console.log('Server listening at port ' + server.address().port);
     });
 
