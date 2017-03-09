@@ -118,7 +118,7 @@ IF EXIST "%DEPLOYMENT_TARGET%\public\bower.json" (
 :: 5. Run build
 IF EXIST "%DEPLOYMENT_TARGET%\Gruntfile.js" (
     pushd "%DEPLOYMENT_TARGET%"
-    call :ExecuteCmd !NODE_EXE! .\node_modules\grunt-cli\bin\grunt build
+    call :ExecuteCmd !NODE_EXE! ".\node_modules\grunt-cli\bin\grunt" build
     IF !ERRORLEVEL! NEQ 0 goto error
     popd
 }
