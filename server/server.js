@@ -12,8 +12,8 @@ function start(publicDir){
     var port = process.env.port || 3001;
 
     server.listen(port, function () {
-        console.log('the env.PORT was ' + process.env.port)
-        console.log('Server listening at port ' + server.address().port);
+        console.log('the env.PORT was can you believe ' + port)
+        console.log('Server listening at port ' + port);
     });
 
     // Routing
