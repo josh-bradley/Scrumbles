@@ -12,7 +12,7 @@ function start(publicDir){
     var io = socket_io.listen(server);
 
     server.listen(port, function () {
-        console.log('Server listening at port %d', port);
+        console.log('Server listening at port ' + server.address().port);
     });
 
     // Routing
