@@ -10,12 +10,10 @@
   "author": "Joshua.Bradley",
   "license": "ISC",
   "dependencies": {
-    "socket.io": "^1.7.3",
     "express": "^4.1.1",
-    "underscore": "^1.6.0",
-    "grunt-cli": "^1.2.0",
     "grunt": "^1.0.1",
     "grunt-browserify": "^5.0.0",
+    "grunt-cli": "^1.2.0",
     "grunt-contrib-csslint": "^2.0.0",
     "grunt-contrib-cssmin": "^2.0.0",
     "grunt-contrib-jasmine": "^1.1.0",
@@ -25,7 +23,10 @@
     "grunt-contrib-uglify": "^2.2.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-jasmine-node": "^0.3.1",
+    "grunt-sass": "^2.0.0",
     "mockery": "^2.0.0",
-    "sinon": "^1.9.1"
+    "sinon": "^1.9.1",
+    "socket.io": "^1.7.3",
+    "underscore": "^1.6.0"
   }
 }
