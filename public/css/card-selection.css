@@ -6,9 +6,15 @@
     margin: 0 auto;
 }
 
-@media (min-width: 390px) and (max-width: 490px) {
+@media (max-width: 767px){
     .cardselection-container {
-        max-width: 360px;
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 390px){
+    .cardselection-container {
+        max-width: 330px;
     }
 }
 
