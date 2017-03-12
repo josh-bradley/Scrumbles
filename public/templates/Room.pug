@@ -9,8 +9,7 @@
    div(data-bind='visible: !isSelectingCard()')
       .row.task-details(data-bind='visible: showGameTitle')
          .col-sm-3.col-sm-offset-3.itemTitle(style='margin-top:0.8em')
-            | Estimating Item:
-            br
+            | Estimating Item:&nbsp;
             span(data-bind='text: room.itemName')
          .col-sm-3.itemTitle(style='margin-top:0.8em', data-bind='visible: room.isStatusInGame() || room.isStatusReview()')
             game-card(params='showCard: selectedCard, card: selectedCard, label: me.playerName',data-bind='click:openCardSelection')
@@ -22,10 +21,11 @@
             input.fullWidth(type='button', value='Start', data-bind='click: initiateItemEstimate, visible: room.isOwner')
       hr(data-bind='visible: !room.isStatusWaiting() && !isSelectingCard()')
       div.row.card-table(data-bind='visible: !room.isStatusWaiting() && !isSelectingCard()')
-         #cardTable.col-md-8(data-bind='foreach: room.players, css: statusClass')
+         .col-md-8
             h3
                | Players Cards
-            game-card(params='showCard: $parent.room.isStatusReview, card: card, label: playerName')
+            #cardTable(data-bind='foreach: room.players, css: statusClass')
+                  game-card(params='showCard: $parent.room.isStatusReview, card: card, label: playerName')
       div.row
          .col-md-offset-3.col-md-6
             input#showCards.fullWidth(type='button', value='Show Cards', data-bind="click: initiateReview, style: { visibility: room.isOwner() && anyCardsDown() && room.isStatusInGame() ? 'visible' : 'hidden'}, visible: room.isStatusInGame")
