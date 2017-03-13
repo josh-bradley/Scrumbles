@@ -66,14 +66,20 @@ module.exports = function(grunt){
             }
         },
         cssmin: {
+            options:{
+                rebaseTo:'public/css'
+            },
             target: {
-                files: [{
-                    expand: true,
-                    cwd: 'public/css',
-                    src: ['*.css', '!*.min.css'],
-                    dest: 'public/css/dest',
-                    ext: '.min.css'
-                }]
+                files: {
+                    'public/css/dest/main.min.css':
+                        [
+                            'public/css/main.css',
+                            'public/css/card-selection.css',
+                            'public/css/test.css',
+                            'public/css/alertify.core.css',
+                            'public/css/alertify.default.css'],
+                    'public/css/dest/bootstrap.min.css': ['public/css/bootstrap.css']
+                }
             }
         },
         sass: {
@@ -126,7 +132,7 @@ module.exports = function(grunt){
 
     // Default task(s).
     grunt.registerTask('test', ['browserify', 'jasmine:all', 'jasmine_node']);
-    grunt.registerTask('default', ['jshint:all', 'pug', 'browserify', 'jasmine:all', 'jasmine_node', 'uglify', 'sass', 'cssmin']);
-    grunt.registerTask('notest', ['jshint:all', 'pug', 'browserify', 'uglify', 'sass', 'cssmin']);
+    grunt.registerTask('default', ['jshint:all', 'pug', 'browserify', 'jasmine:all', 'jasmine_node', 'uglify', 'sass', 'cssmin:target']);
+    grunt.registerTask('notest', ['jshint:all', 'pug', 'browserify', 'uglify', 'sass', 'cssmin:target']);
     grunt.registerTask('build', ['pug', 'browserify', 'uglify', 'sass', 'cssmin']);
 };
