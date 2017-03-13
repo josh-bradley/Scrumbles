@@ -1,5 +1,5 @@
 var express = require('express');
-var http = require('https');
+var http = require('http');
 var socket_io = require('socket.io');
 var main = require('./main');
 var ioManager = require('./io');
