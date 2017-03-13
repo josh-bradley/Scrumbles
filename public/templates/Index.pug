@@ -4,7 +4,7 @@ html
       include Head
    body
       h1(data-bind='visible: room.isStatusInit') Scrumbles
-      p(style='text-align:center;font-family: sans-serif', data-bind='visible: room.isStatusInit') Online scrumb poker
+      p.sub-heading(data-bind='visible: room.isStatusInit') Online scrumb poker
       include Start
       include Room
       include Modal

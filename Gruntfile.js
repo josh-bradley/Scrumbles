@@ -103,8 +103,8 @@ module.exports = function(grunt){
                 }
             },
             css: {
-                files: ['public/css/*.css'],
-                tasks: ['cssmin'],
+                files: ['public/css/*.css', 'public/css/*.scss'],
+                tasks: ['sass', 'cssmin'],
                 options: {
                     spawn: false
                 }

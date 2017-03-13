@@ -17,3 +17,5 @@ public/Index.html
 /tests/dist/
 *.map
 *~
+public/css/card-selection.css
+public/css/main.css
