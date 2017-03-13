@@ -6,6 +6,8 @@ module.exports = (function(){
     }
 
     function getSocket() {
+        if(!socket)
+            connect();
         return socket;
     }
 

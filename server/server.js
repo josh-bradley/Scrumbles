@@ -1,5 +1,5 @@
 var express = require('express');
-var http = require('http');
+var http = require('https');
 var socket_io = require('socket.io');
 var main = require('./main');
 var ioManager = require('./io');
@@ -12,7 +12,6 @@ function start(publicDir){
     var port = process.env.port || 3001;
 
     server.listen(port, function () {
-        console.log('the env.PORT was can you believe ' + port);
         console.log('Server listening at port ' + port);
     });
 
