@@ -1,3 +1,5 @@
+
+
 node_modules
 azure.err
 *.publishsettings
@@ -13,3 +15,5 @@ public/js/dest
 public/css/dest
 public/Index.html
 /tests/dist/
+*.map
+*~

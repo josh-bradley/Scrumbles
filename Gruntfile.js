@@ -76,16 +76,17 @@ module.exports = function(grunt){
                 }]
             }
         },
-        // sass: {
-        //     options: {
-        //         sourceMap: true
-        //     },
-        //     dist: {
-        //         files: {
-        //             'fromsass.css': 'public/css/*.css'
-        //         }
-        //     }
-        // },
+        sass: {
+            options: {
+                sourceMap: true
+            },
+            dist: {
+                files: {
+                    'public/css/main.css': 'public/css/main.scss',
+                    'public/css/card-selection.css': 'public/css/card-selection.scss'
+                }
+            }
+        },
         watch: {
             scripts: {
                 files: ['public/js/*.js'],
@@ -125,7 +126,7 @@ module.exports = function(grunt){
 
     // Default task(s).
     grunt.registerTask('test', ['browserify', 'jasmine:all', 'jasmine_node']);
-    grunt.registerTask('default', ['jshint:all', 'pug', 'browserify', 'jasmine:all', 'jasmine_node', 'uglify', 'cssmin']);
-    grunt.registerTask('notest', ['jshint:all', 'pug', 'browserify', 'uglify', 'cssmin']);
-    grunt.registerTask('build', ['pug', 'browserify', 'uglify', 'cssmin']);
+    grunt.registerTask('default', ['jshint:all', 'pug', 'browserify', 'jasmine:all', 'jasmine_node', 'uglify', 'sass', 'cssmin']);
+    grunt.registerTask('notest', ['jshint:all', 'pug', 'browserify', 'uglify', 'sass', 'cssmin']);
+    grunt.registerTask('build', ['pug', 'browserify', 'uglify', 'sass', 'cssmin']);
 };
