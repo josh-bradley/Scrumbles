@@ -3,9 +3,6 @@
 node_modules
 azure.err
 *.publishsettings
-public/templates/Start.html
-public/templates/Room.html
-public/templates/Index.html
 npm-debug.log
 .idea/*
 public/js/bundle.js
