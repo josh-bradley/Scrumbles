@@ -24,12 +24,12 @@ module.exports = (function(){
     }
 
     function setPlayersCardValue(playerName, card){
-        var player = this().find(function(player){
+        var players = this().filter(function(player){
             return (player.playerName() === playerName);
         });
 
-        if(player) {
-            player.card(card);
+        if(players.length == 1) {
+            players[0].card(card);
         }
     }
 

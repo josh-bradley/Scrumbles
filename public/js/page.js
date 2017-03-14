@@ -146,9 +146,9 @@ module.exports = (function(){
         }.bind(this);
 
         this.anyCardsDown = ko.computed(function(){
-            return undefined !== self.room.players().find(function(player){
+            return self.room.players().filter(function(player){
                 return player.card();
-            });
+            }).length > 0;
         });
 
         this.joinRoomViewModel.errors = ko.validation.group(this.joinRoomViewModel);
