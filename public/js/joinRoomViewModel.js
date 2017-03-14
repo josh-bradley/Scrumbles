@@ -1,3 +1,5 @@
+var ko = require('knockout');
+require('knockout.validation');
 module.exports = function(){
     var requiredValidator = require('./customValidators/customValidators').requiredValidator;
     var self = this;

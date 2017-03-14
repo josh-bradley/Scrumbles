@@ -1,4 +1,6 @@
 module.exports = (function(){
+    var ko = require('knockout');
+    require('knockout.validation');
     var pageStatus = require('./pageStatus.js');
     var roomService = require('./service/roomService.js');
     var notify = require('./notify.js');
@@ -10,7 +12,7 @@ module.exports = (function(){
 
     function joinRoomRequest(){
         this.joinRoomViewModel.errorField(null);
-        if(!this.joinRoomViewModel.isValid()){
+        if(this.joinRoomViewModel.errors().length > 0){
             this.joinRoomViewModel.errors.showAllMessages();
             return;
         }
@@ -30,7 +32,7 @@ module.exports = (function(){
         }
 
         this.joinRoomViewModel.errorField(null);
-        if(!this.joinRoomViewModel.isValid()){
+        if(this.joinRoomViewModel.errors().length > 0){
             this.joinRoomViewModel.errors.showAllMessages();
             return;
         }
@@ -62,7 +64,7 @@ module.exports = (function(){
             return;
         }
 
-        if(!this.room.isValid()){
+        if(this.room.errors().length > 0){
             this.room.errors.showAllMessages();
             return;
         }
@@ -84,7 +86,7 @@ module.exports = (function(){
         this.room.itemName('');
         this.room.itemName.isModified(false);
         this.selectedCard(undefined);
-        _.each(this.room.players(), function(player){
+        this.room.players().forEach(function(player){
             player.card(undefined);
         });
     }
@@ -144,7 +146,7 @@ module.exports = (function(){
         }.bind(this);
 
         this.anyCardsDown = ko.computed(function(){
-            return undefined !== _.find(self.room.players(), function(player){
+            return undefined !== self.room.players().find(function(player){
                 return player.card();
             });
         });

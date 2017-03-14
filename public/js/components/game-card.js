@@ -1,3 +1,5 @@
+var ko = require('knockout');
+
 function GameCardViewModel(params) {
     this.card = params.card;
     this.showCard = params.showCard;

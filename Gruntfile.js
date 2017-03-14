@@ -99,21 +99,21 @@ module.exports = function(grunt){
                 files: ['public/js/*.js'],
                 tasks: ['browserify', 'uglify'],
                 opitons: {
-                    spawn: false
+                    spawn: true
                 }
             },
             pug: {
                 files: ['public/templates/*.pug'],
                 tasks: ['pug'],
                 options: {
-                    spawn: false
+                    spawn: true
                 }
             },
             css: {
                 files: ['public/css/*.css', 'public/css/*.scss'],
                 tasks: ['sass', 'cssmin'],
                 options: {
-                    spawn: false
+                    spawn: true
                 }
             }
         }

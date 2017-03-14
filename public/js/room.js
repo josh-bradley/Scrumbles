@@ -1,4 +1,5 @@
 module.exports = function(){
+    var ko = require('knockout');
     var pageStatus = require('./pageStatus.js');
     var players = require('./players.js');
     var self = this;
@@ -33,9 +34,11 @@ module.exports = function(){
     this.init = function(data){
         var players = data.room.players || {};
 
-        _.each(players, function(player){
-            self.players.add(player);
-        });
+        for(var key in players){
+            if(players.hasOwnProperty(key)) {
+                self.players.add(players[key]);
+            }
+        }
 
         if(data.room.itemName){
             self.itemName(data.room.itemName);

@@ -1,4 +1,5 @@
 module.exports = (function(){
+    var ko = require('knockout');
     var Player = require('./player.js');
 
     function init(){
@@ -15,7 +16,7 @@ module.exports = (function(){
     }
 
     function removeByName(playerName){
-        var players = _.filter(this(), function(player){
+        var players = this().filter(function(player){
             return (player.playerName() !== playerName);
         });
 
@@ -23,7 +24,7 @@ module.exports = (function(){
     }
 
     function setPlayersCardValue(playerName, card){
-        var player = _.find(this(), function(player){
+        var player = this().find(function(player){
             return (player.playerName() === playerName);
         });
 
