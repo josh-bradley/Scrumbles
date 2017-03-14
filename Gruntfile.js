@@ -32,7 +32,8 @@ module.exports = function(grunt){
             compile: {
                 options: {
                     data: {
-                        debug: false
+                        debug: false,
+                        wsHost: 'wss://scrumbles.azurewebsites.net'
                     }
                 },
                 files: {
