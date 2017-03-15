@@ -1,0 +1,53 @@
+.emptyCard{
+  height:12em;
+  width:8em;
+}
+
+.cardNumber {
+  font-size: 3em;
+}
+
+.cardPlayerName{
+  width:8em;
+}
+.hasCard .innerCard {
+  line-height:10.5em;
+}
+
+$card-size-multiplyer: 1.5;
+@media (max-width: 767px){
+  .emptyCard{
+    height:6em * $card-size-multiplyer;
+    width:4em * $card-size-multiplyer;
+  }
+
+  .cardNumber {
+    font-size: 1.5em * $card-size-multiplyer;
+  }
+
+  .cardPlayerName{
+    width:4em * $card-size-multiplyer;
+  }
+  .hasCard .innerCard {
+    line-height: 4.75em * $card-size-multiplyer;
+  }
+}
+
+$card-size-multiplyer: 1.3;
+@media (max-width: 390px){
+  .emptyCard{
+    height:6em * $card-size-multiplyer;
+    width:4em * $card-size-multiplyer;
+  }
+
+  .cardNumber {
+    font-size: 1.5em * $card-size-multiplyer;
+  }
+
+  .cardPlayerName{
+    width:4em * $card-size-multiplyer;
+  }
+  .hasCard .innerCard {
+    line-height: 4.75em * $card-size-multiplyer;
+  }
+}

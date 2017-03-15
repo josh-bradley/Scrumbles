@@ -1,23 +1,19 @@
-.cardselection-container {
+.cardlist-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     max-width:640px;
     margin: 0 auto;
 }
 
 @media (max-width: 767px){
-    .cardselection-container {
+    .cardlist-container {
         max-width: 500px;
     }
 }
 
 @media (max-width: 390px){
-    .cardselection-container {
+    .cardlist-container {
         max-width: 330px;
     }
-}
-
-game-card {
-    /*width: 25%;*/
 }

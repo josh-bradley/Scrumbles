@@ -1,5 +1,3 @@
-/*
-070333 030B33 000B19 032533 033133*/
 h1{
     text-align:center;
     font-size:5em;
@@ -25,9 +23,7 @@ input[type=text] {
     width:100%;
     padding:14px 5px;
     border-width:0px;
-    /*border-color:#001332;*/
     border-color:#00386A;
-    /*border-color:#00184A;*/
     border-style: solid;
     margin:5px 0;
     font-size:1.2em;
@@ -36,10 +32,6 @@ input[type=text] {
 #cardTableSection{
     margin:0 auto;
 }
-/*
-::-webkit-input-placeholder{
-    color:black;
-}*/
 
 .fullWidth{
     width:100%;
@@ -70,8 +62,6 @@ input[type=button]{
 }
 
 .emptyCard{
-    height:12em;
-    width:8em;
     border-width:1px;
     border-style: solid;
     border-color:ThreeDDarkShadow;
@@ -95,11 +85,9 @@ input[type=button]{
     border-width: 3px;
     border-style: solid;
     border-color: whitesmoke;
-    line-height:10.5em;
 }
 
 .cardNumber {
-    font-size: 3em;
     margin: 0 auto;
     width: 100%;
     text-align: center;
@@ -113,55 +101,10 @@ input[type=button]{
 
 .cardPlayerName{
     color:#D2E0E6;
-    width:8em;
     display: block;
     margin:0 auto;
     text-align: center;
     word-wrap:break-word;
-}
-
-$card-size-multiplyer: 1.5;
-@media (max-width: 767px){
-    h1{
-        font-size:4em * $card-size-multiplyer;
-    }
-    .emptyCard{
-        height:6em * $card-size-multiplyer;
-        width:4em * $card-size-multiplyer;
-    }
-
-    .cardNumber {
-        font-size: 1.5em * $card-size-multiplyer;
-    }
-
-    .cardPlayerName{
-        width:4em * $card-size-multiplyer;
-    }
-    .hasCard .innerCard {
-        line-height: 4.75em * $card-size-multiplyer;
-    }
-}
-
-$card-size-multiplyer: 1.3;
-@media (max-width: 390px){
-    h1{
-        font-size:4em * $card-size-multiplyer;
-    }
-    .emptyCard{
-        height:6em * $card-size-multiplyer;
-        width:4em * $card-size-multiplyer;
-    }
-
-    .cardNumber {
-        font-size: 1.5em * $card-size-multiplyer;
-    }
-
-    .cardPlayerName{
-        width:4em * $card-size-multiplyer;
-    }
-    .hasCard .innerCard {
-        line-height: 4.75em * $card-size-multiplyer;
-    }
 }
 
 .ingame .hasCard div{

@@ -76,6 +76,7 @@ module.exports = function(grunt){
                         [
                             'public/css/main.css',
                             'public/css/card-selection.css',
+                            'public/css/card-sizes.css',
                             'public/css/test.css',
                             'public/css/alertify.core.css',
                             'public/css/alertify.default.css'],
@@ -90,7 +91,8 @@ module.exports = function(grunt){
             dist: {
                 files: {
                     'public/css/main.css': 'public/css/main.scss',
-                    'public/css/card-selection.css': 'public/css/card-selection.scss'
+                    'public/css/card-selection.css': 'public/css/card-selection.scss',
+                    'public/css/card-sizes.css': 'public/css/card-sizes.scss'
                 }
             }
         },
