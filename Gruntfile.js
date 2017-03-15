@@ -5,12 +5,6 @@ module.exports = function(grunt){
             all: ['gruntfile.js', 'public/js/*.js', 'tests/specs/**/*.js', 'server/*.js'],
             options: {ignores: ['public/js/bundle.js']}
         },
-
-        csslint: {
-            all: {
-                src:['public/css/main.css']
-            }
-        },
         jasmine: {
             all: {
                 src: [ 'public/js/bundle.js' ],
@@ -125,7 +119,6 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-jasmine-node');
-    grunt.loadNpmTasks('grunt-contrib-csslint');
     grunt.loadNpmTasks('grunt-contrib-pug');
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-uglify');
