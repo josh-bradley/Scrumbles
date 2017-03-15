@@ -71,7 +71,6 @@ module.exports = function(grunt){
                             'public/css/main.css',
                             'public/css/card-selection.css',
                             'public/css/card-sizes.css',
-                            'public/css/test.css',
                             'public/css/alertify.core.css',
                             'public/css/alertify.default.css'],
                     'public/css/dest/bootstrap.min.css': ['public/css/bootstrap.css']
