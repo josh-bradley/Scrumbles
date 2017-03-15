@@ -1,6 +1,18 @@
+$card-outer-margin: 0.6;
+$card-width = 8;
+.cardPlaceHolder {
+  margin:1em * $card-outer-margin;
+}
+
 .emptyCard{
   height:12em;
-  width:8em;
+  width:1em * $card-width;
+}
+
+.task-details game-card{
+  width: $card-width + 2 * $card-outer-margin;
+  display:block;
+  margin:0 auto;
 }
 
 .cardNumber {
@@ -15,10 +27,16 @@
 }
 
 $card-size-multiplyer: 1.5;
+$card-width = 4 * $card-size-multiplyer;
 @media (max-width: 767px){
-  .emptyCard{
+
+  .emptyCard {
     height:6em * $card-size-multiplyer;
-    width:4em * $card-size-multiplyer;
+    width:1em * $card-width;
+  }
+
+  .task-details game-card {
+    width: $card-width + 2 * $card-outer-margin;
   }
 
   .cardNumber {
@@ -34,10 +52,16 @@ $card-size-multiplyer: 1.5;
 }
 
 $card-size-multiplyer: 1.3;
-@media (max-width: 390px){
-  .emptyCard{
+$card-width = 4 * $card-size-multiplyer;
+@media (max-width: 767px){
+
+  .emptyCard {
     height:6em * $card-size-multiplyer;
-    width:4em * $card-size-multiplyer;
+    width:1em * $card-width;
+  }
+
+  .task-details game-card{
+    width: $card-width + 2 * $card-outer-margin;
   }
 
   .cardNumber {

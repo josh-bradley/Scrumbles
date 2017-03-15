@@ -106,7 +106,6 @@ input[type=button]{
 
 .cardPlaceHolder{
     float:left;
-    margin:0.6em;
 }
 
 .review .hasCard > div {
@@ -143,5 +142,9 @@ body {
 }
 
 .sub-heading {
+    text-align: center;
+}
+
+.task-details {
     text-align: center;
 }
