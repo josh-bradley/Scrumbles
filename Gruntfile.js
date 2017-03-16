@@ -27,7 +27,7 @@ module.exports = function(grunt){
                 options: {
                     data: {
                         debug: false,
-                        wsHost: 'wss://scrumbles.azurewebsites.net'
+                        wsHost: 'wss://scrumbles.azurewebsites.net wss://scrumbles.net'
                     }
                 },
                 files: {
