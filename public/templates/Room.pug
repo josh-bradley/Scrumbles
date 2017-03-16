@@ -11,7 +11,7 @@
          .col-ks-12.itemTitle
             | Estimating Item:&nbsp;
             span(data-bind='text: room.itemName')
-            game-card(params='showCard: selectedCard, card: selectedCard, label: me.playerName',data-bind='click:openCardSelection')
+         game-card.large(params='showCard: selectedCard, card: selectedCard, label: me.playerName',data-bind='click:openCardSelection')
       .row(data-bind='visible: room.isStatusWaiting')
          .col-md-4.col-md-offset-3.col-gut-4
             span.itemTitle(data-bind='visible: !room.isOwner()') Waiting for next game to start...

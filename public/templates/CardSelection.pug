@@ -1,4 +1,4 @@
 h2
     | Select card
 div.cardlist-container(data-bind='foreach: cards')
-    game-card(params='showCard: true, card: $data', data-bind='click: $parent.playerSelectsCard')
+    game-card.large(params='showCard: true, card: $data', data-bind='click: $parent.playerSelectsCard')

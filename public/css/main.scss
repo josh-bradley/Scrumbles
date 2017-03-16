@@ -1,3 +1,8 @@
+body {
+    color:#D2E0E6;
+    background-color:#324982;
+}
+
 h1{
     text-align:center;
     font-size:5em;
@@ -21,9 +26,10 @@ h2{
 input[type=text] {
     color:black;
     width:100%;
-    padding:14px 5px;
+    padding:14px;
     border: 0 solid #00386A;
     margin:5px 0;
+    font-family: Helvetica, serif;
     font-size:1.2em;
 }
 
@@ -50,8 +56,9 @@ input[type=button]{
     margin:5px 0;
     box-sizing: border-box;
     font-weight: bold;
-    font-size:1.2em;
     background-color:#4A6DC1;
+    font-family: Helvetica, serif;
+    font-size:1.2em;
 }
 
 .selectCard{
@@ -108,15 +115,6 @@ input[type=button]{
     float:left;
 }
 
-.review .hasCard > div {
-    background: orangered;
-}
-
-body {
-    color:#D2E0E6;
-    background-color:#324982
-}
-
 .itemTitle{
     font-size:1.3em;
 }
@@ -143,6 +141,8 @@ body {
 
 .sub-heading {
     text-align: center;
+    margin-top:0;
+    font-size:1.2em;
 }
 
 .task-details {
