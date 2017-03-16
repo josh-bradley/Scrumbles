@@ -1,4 +1,4 @@
-var CACHE_NAME = 'scrumbles-v1.0.1';
+var CACHE_NAME = 'scrumbles-v1.0.2';
 var urlsToCache = [
     '/',
     '/css/dest/bootstrap.min.css',
