@@ -6,18 +6,18 @@ module.exports = function(){
 
     this.status = ko.observable(pageStatus.INIT);
 
-    this.isStatusInit = ko.computed(function(){
-        return self.status() === pageStatus.INIT;
-    }, true);
-    this.isStatusWaiting = ko.computed(function(){
-        return self.status() === pageStatus.WAITING;
-    }, true);
-    this.isStatusInGame = ko.computed(function(){
-        return self.status() === pageStatus.INGAME;
-    }, true);
-    this.isStatusReview = ko.computed(function(){
-        return self.status() === pageStatus.REVIEW;
-    }, true);
+    this.isStatusInit = ko.pureComputed(function(){
+        return this.status() === pageStatus.INIT;
+    }, this);
+    this.isStatusWaiting = ko.pureComputed(function(){
+        return this.status() === pageStatus.WAITING;
+    }, this);
+    this.isStatusInGame = ko.pureComputed(function(){
+        return this.status() === pageStatus.INGAME;
+    }, this);
+    this.isStatusReview = ko.pureComputed(function(){
+        return this.status() === pageStatus.REVIEW;
+    }, this);
 
     this.name = ko.observable();
 

@@ -119,20 +119,19 @@ module.exports = (function(){
         this.initiateEndReview = gameService.initiateEndReview;
         this.cardSelected = gameService.cardSelected;
 
-        this.showGameTitle = ko.computed(function(){
-            return self.room.isStatusInGame() || self.room.isStatusReview();
-        }, true);
+        this.showGameTitle = ko.pureComputed(function(){
+            return this.room.isStatusInGame() || this.room.isStatusReview();
+        }, this);
 
-        this.statusClass = ko.computed(function(){
-            if(self.room.status() === pageStatus.WAITING){
+        this.statusClass = ko.pureComputed(function(){
+            if(this.room.status() === pageStatus.WAITING){
                 return 'waiting';
-            } else if (self.room.status() === pageStatus.INGAME){
+            } else if (this.room.status() === pageStatus.INGAME){
                 return 'ingame';
-            } else if (self.room.status() === pageStatus.REVIEW) {
+            } else if (this.room.status() === pageStatus.REVIEW) {
                 return 'review';
             }
-
-        }, true);
+        }, this);
 
         this.isSelectingCard = ko.observable(false);
         this.openCardSelection = function(){
@@ -145,11 +144,11 @@ module.exports = (function(){
             this.cardSelected(card);
         }.bind(this);
 
-        this.anyCardsDown = ko.computed(function(){
-            return self.room.players().filter(function(player){
+        this.anyCardsDown = ko.pureComputed(function(){
+            return this.room.players().filter(function(player){
                 return player.card();
             }).length > 0;
-        });
+        }, this);
 
         this.joinRoomViewModel.errors = ko.validation.group(this.joinRoomViewModel);
         this.room.errors = ko.validation.group(this.room);
