@@ -7,9 +7,7 @@ ko.applyBindings(viewModel);
 if('serviceWorker' in navigator) {
     window.addEventListener('load', function(){
         navigator.serviceWorker.register('/sw.js')
-            .then(function() {
-                console.log('service worker loaded');
-            }).catch(function(err){
+            .catch(function(err){
                 console.log('service worker failed error: ' + err);
             });
     });
