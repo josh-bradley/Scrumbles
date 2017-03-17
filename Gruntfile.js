@@ -89,6 +89,14 @@ module.exports = function(grunt){
                 }
             }
         },
+        lesslint: {
+            src:['public/css/*.less'],
+            options:{
+                csslint: {
+                    "box-sizing": false
+                }
+            }
+        },
         watch: {
             scripts: {
                 files: ['public/js/*.js'],
@@ -124,10 +132,11 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-lesslint');
 
     // Default task(s).
     grunt.registerTask('test', ['browserify', 'jasmine:all', 'jasmine_node']);
-    grunt.registerTask('default', ['jshint:all', 'pug', 'browserify', 'jasmine:all', 'jasmine_node', 'uglify', 'less', 'cssmin:target']);
+    grunt.registerTask('default', ['jshint:all', 'pug', 'browserify', 'jasmine:all', 'jasmine_node', 'uglify', 'lesslint', 'less', 'cssmin:target']);
     grunt.registerTask('notest', ['jshint:all', 'pug', 'browserify', 'uglify', 'less', 'cssmin:target']);
     grunt.registerTask('build', ['pug', 'browserify', 'uglify', 'less', 'cssmin']);
 };

@@ -23,6 +23,7 @@
     "grunt-contrib-uglify": "^2.2.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-jasmine-node": "^0.3.1",
+    "grunt-lesslint": "^3.2.0",
     "knockout": "^3.4.2",
     "knockout.validation": "^2.0.3",
     "mockery": "^2.0.0",
