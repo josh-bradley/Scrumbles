@@ -77,15 +77,15 @@ module.exports = function(grunt){
                 }
             }
         },
-        sass: {
+        less: {
             options: {
                 sourceMap: true
             },
             dist: {
                 files: {
-                    'public/css/main.css': 'public/css/main.scss',
-                    'public/css/card-selection.css': 'public/css/card-selection.scss',
-                    'public/css/card-sizes.css': 'public/css/card-sizes.scss'
+                    'public/css/main.css': 'public/css/main.less',
+                    'public/css/card-selection.css': 'public/css/card-selection.less',
+                    'public/css/card-sizes.css': 'public/css/card-sizes.less'
                 }
             }
         },
@@ -106,7 +106,7 @@ module.exports = function(grunt){
             },
             css: {
                 files: ['public/css/*.css', 'public/css/*.scss'],
-                tasks: ['sass', 'cssmin'],
+                tasks: ['less', 'cssmin'],
                 options: {
                     spawn: true
                 }
@@ -123,11 +123,11 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-sass');
+    grunt.loadNpmTasks('grunt-contrib-less');
 
     // Default task(s).
     grunt.registerTask('test', ['browserify', 'jasmine:all', 'jasmine_node']);
-    grunt.registerTask('default', ['jshint:all', 'pug', 'browserify', 'jasmine:all', 'jasmine_node', 'uglify', 'sass', 'cssmin:target']);
-    grunt.registerTask('notest', ['jshint:all', 'pug', 'browserify', 'uglify', 'sass', 'cssmin:target']);
-    grunt.registerTask('build', ['pug', 'browserify', 'uglify', 'sass', 'cssmin']);
+    grunt.registerTask('default', ['jshint:all', 'pug', 'browserify', 'jasmine:all', 'jasmine_node', 'uglify', 'less', 'cssmin:target']);
+    grunt.registerTask('notest', ['jshint:all', 'pug', 'browserify', 'uglify', 'less', 'cssmin:target']);
+    grunt.registerTask('build', ['pug', 'browserify', 'uglify', 'less', 'cssmin']);
 };

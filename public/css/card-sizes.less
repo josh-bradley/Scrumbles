@@ -1,0 +1,49 @@
+.cardSize(@card-width, @outer-margin){
+  .emptyCard{
+    height:@card-width * 1.5em;
+    width:1em * @card-width;
+  }
+
+  .task-details game-card{
+    width: @card-width + 2em * @outer-margin;
+  }
+
+  .cardNumber {
+    font-size: @card-width * 3 / 8em;
+  }
+
+  .cardPlayerName{
+    width:1em * @card-width;
+  }
+
+  .hasCard .innerCard {
+    line-height: @card-width * 1.3em;
+  }
+}
+
+@card-outer-margin: 0.6;
+@card-width-lg: 5.6;
+
+.cardPlaceHolder {
+  margin:1em * @card-outer-margin;
+}
+
+.cardSize(@card-width-lg, @card-outer-margin);
+
+.task-details game-card{
+  display:block;
+  margin:0 auto;
+}
+
+game-card {
+  font-size:1.2em;
+}
+
+game-card.large {
+  font-size:1.56em;
+}
+
+@card-width-sm: 4.4;
+@media (max-width: 767px){
+  .cardSize(@card-width-sm, @card-outer-margin);
+}
