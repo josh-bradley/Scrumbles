@@ -4,7 +4,7 @@ var socket_io = require('socket.io');
 var main = require('./main');
 var ioManager = require('./io');
 
-function start(publicDir){
+function start(publicDir, wellKnownDir){
     'use strict';
     var app = express();
     var server = http.createServer(app);
@@ -17,6 +17,7 @@ function start(publicDir){
 
     // Routing
     app.use(express.static(publicDir));
+    app.use('/.well-known', express.static(wellKnownDir));
 
     ioManager.init(io);
     main.init(io);
