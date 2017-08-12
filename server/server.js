@@ -4,12 +4,12 @@ var socket_io = require('socket.io');
 var main = require('./main');
 var ioManager = require('./io');
 
-function start(publicDir, wellKnownDir){
+function start(publicDir, wellKnownDir, port){
     'use strict';
     var app = express();
     var server = http.createServer(app);
     var io = socket_io.listen(server);
-    var port = process.env.port || 3001;
+    var port = port || process.env.port || 3001;
 
     server.listen(port, function () {
         console.log('Server listening at port ' + port);

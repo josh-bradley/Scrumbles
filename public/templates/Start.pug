@@ -1,4 +1,6 @@
-.container(data-bind='visible: room.isStatusInit')
+.container.start-container(data-bind='visible: room.isStatusInit')   
+   h1 Scrumbles
+   h2.sub-heading Online scrumb poker
    .row
       .col-md-4.col-md-offset-4.col-gut-4
          input.input-large(placeholder='Enter name...', type='text', data-bind="hasFocus: room.isStatusInit, value: joinRoomViewModel.playerName, valueUpdate: 'afterkeydown', event:{ 'keyup':createRoomRequest }", maxlength='15' required)
