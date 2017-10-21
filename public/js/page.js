@@ -1,5 +1,5 @@
 module.exports = (function(){
-    var ko = require('knockout');
+    ko = require('knockout');
     require('knockout.validation');
     var pageStatus = require('./pageStatus.js');
     var roomService = require('./service/roomService.js');
@@ -9,6 +9,11 @@ module.exports = (function(){
     var socketListener = require('./socketListener.js');
     var JoinRoomViewModel = require('./joinRoomViewModel.js');
     var LoadMessageViewModel = require('./loadMessageViewModel.js');
+
+    function soloPlayStart(){
+      this.room.startSoloGame();
+      this.isSelectingCard(true);
+    }
 
     function joinRoomRequest(){
         this.joinRoomViewModel.errorField(null);
@@ -91,6 +96,12 @@ module.exports = (function(){
         });
     }
 
+    function soloCardSelected(){
+      var currentState = this.showSoloCard();
+      this.isSelectingCard(currentState);
+      this.showSoloCard(!currentState);
+    }
+
     var PageModel = function(){
         var self = this;
 
@@ -103,6 +114,8 @@ module.exports = (function(){
         this.loadMessageViewModel = new LoadMessageViewModel();
 
         this.selectedCard = ko.observable();
+        this.showSoloCard = ko.observable(false);
+        this.isSelectingCard = ko.observable(false);
 
         // Status changes
         this.joinRoomSuccess = joinRoomSuccess.bind(this);
@@ -114,10 +127,12 @@ module.exports = (function(){
         // Handlers
         this.createRoomRequest = createRoomRequest;
         this.joinRoomRequest = joinRoomRequest;
+        this.soloPlayStart = soloPlayStart.bind(this);
         this.initiateItemEstimate = initiateItemEstimate;
         this.initiateReview = gameService.initiateReview;
         this.initiateEndReview = gameService.initiateEndReview;
         this.cardSelected = gameService.cardSelected;
+        this.soloCardSelected = soloCardSelected.bind(this);
 
         this.showGameTitle = ko.pureComputed(function(){
             return this.room.isStatusInGame() || this.room.isStatusReview();
@@ -133,7 +148,7 @@ module.exports = (function(){
             }
         }, this);
 
-        this.isSelectingCard = ko.observable(false);
+        
         this.openCardSelection = function(){
             if(this.room.isStatusInGame())
                 this.isSelectingCard(!this.isSelectingCard());

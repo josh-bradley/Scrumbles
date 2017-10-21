@@ -1,3 +1,3 @@
 module.exports = (function(){
-    return { INIT:0, WAITING:1, INGAME:2, REVIEW:3 };
+    return { INIT:0, WAITING:1, INGAME:2, REVIEW:3, SOLOGAME:4 };
 })();

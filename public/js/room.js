@@ -18,6 +18,17 @@ module.exports = function(){
     this.isStatusReview = ko.pureComputed(function(){
         return this.status() === pageStatus.REVIEW;
     }, this);
+    this.isStatusSolo = ko.pureComputed(function () {
+      return this.status() === pageStatus.SOLOGAME;
+    }, this);
+    this.isInMultiplayerGame = ko.pureComputed(function () {
+      return this.status() !== pageStatus.SOLOGAME && this.status() !== pageStatus.INIT;
+    }, this);
+    
+
+    this.startSoloGame = function(){
+      this.status(pageStatus.SOLOGAME);
+    }
 
     this.name = ko.observable();
 

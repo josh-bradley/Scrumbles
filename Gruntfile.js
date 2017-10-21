@@ -113,7 +113,7 @@ module.exports = function(grunt){
                 }
             },
             css: {
-                files: ['public/css/*.css', 'public/css/*.scss'],
+                files: ['public/css/*.css', 'public/css/*.less'],
                 tasks: ['less', 'cssmin'],
                 options: {
                     spawn: true

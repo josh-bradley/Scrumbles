@@ -1,4 +1,6 @@
-h2
+mixin cardSelection(clickEvent)
+  -var databind='click:' + clickEvent
+  h2
     | Select card
-div.cardlist-container(data-bind='foreach: cards')
-    game-card.large(params='showCard: true, card: $data', data-bind='click: $parent.playerSelectsCard')
+  div.cardlist-container(data-bind='foreach: cards')
+    game-card.large(params='showCard: true, card: $data', data-bind=databind)

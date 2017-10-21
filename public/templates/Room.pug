@@ -1,11 +1,13 @@
-.container(data-bind='visible: !room.isStatusInit()', style='display:none')
+include CardSelection
+.container(data-bind='visible: room.isInMultiplayerGame', style='display:none')
    .row(data-bind='visible: !isSelectingCard()')
       .col-md-7.itemTitle
          h2(data-bind='text: room.name')
    hr(data-bind='visible: !isSelectingCard()')
    div.row(data-bind='visible: isSelectingCard')
       .col-xs-12
-         include CardSelection
+        - var clickEvent = '$parent.playerSelectsCard';
+        +cardSelection(clickEvent)
    div(data-bind='visible: !isSelectingCard()')
       .row.task-details(data-bind='visible: showGameTitle')
          .col-ks-12.itemTitle

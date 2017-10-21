@@ -1,0 +1,8 @@
+include CardSelection
+.container(data-bind='visible: room.isStatusSolo', style='display:none')
+  h1 Solo
+  div(data-bind='visible:isSelectingCard')
+    - var clickEvent = '$parent.playerSelectsCard'
+    +cardSelection(clickEvent)
+  .solo-card-container(data-bind='visible:!isSelectingCard(),css:{ingame:!showSoloCard()}')
+    game-card.large(params='showCard:showSoloCard, card:selectedCard' data-bind='click:soloCardSelected')
