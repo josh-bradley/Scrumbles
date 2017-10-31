@@ -2,6 +2,7 @@ describe('player.leave', function(){
     var sandbox;
     var helpers = require('../../helpers/clientTestHelper');
     var pageConstructor = require('../../../public/js/page');
+    var _ = require('underscore');
     var page;
 
     beforeEach(function(){

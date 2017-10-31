@@ -4,6 +4,7 @@ describe('item.finishReview', function(){
     var pageStatus = require('../../../public/js/pageStatus');
     var pageConstructor = require('../../../public/js/page');
     var page;
+    var _ = require('underscore');
 
     beforeEach(function(){
         sandbox = sinon.sandbox.create();

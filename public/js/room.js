@@ -25,10 +25,9 @@ module.exports = function(){
       return this.status() !== pageStatus.SOLOGAME && this.status() !== pageStatus.INIT;
     }, this);
     
-
     this.startSoloGame = function(){
       this.status(pageStatus.SOLOGAME);
-    }
+    };
 
     this.name = ko.observable();
 

@@ -9,7 +9,7 @@ function start(publicDir, wellKnownDir, port){
     var app = express();
     var server = http.createServer(app);
     var io = socket_io.listen(server);
-    var port = port || process.env.port || 3001;
+    port = port || process.env.port || 3001;
 
     server.listen(port, function () {
         console.log('Server listening at port ' + port);

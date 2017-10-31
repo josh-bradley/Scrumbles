@@ -1,15 +1,12 @@
-.cardSize(@card-width, @outer-margin){
+.cardSize(@card-width, @outer-margin, @card-line-padding, @card-line-size){
   .emptyCard{
     height:@card-width * 1.5em;
     width:1em * @card-width;
-  }
-
-  .task-details game-card{
-    width: @card-width + 2em * @outer-margin;
+    padding: @card-line-padding @card-line-padding + 1 @card-line-padding + 1 @card-line-padding;
   }
 
   .cardNumber {
-    font-size: @card-width * 3 / 8em;
+    font-size: @card-width * 7 / 16em;
   }
 
   .cardPlayerName{
@@ -18,32 +15,39 @@
 
   .hasCard .innerCard {
     line-height: @card-width * 1.3em;
+    height:100%;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    border: @card-line-size solid whitesmoke;
+    box-sizing: border-box;
   }
 }
 
 @card-outer-margin: 0.6;
 @card-width-lg: 5.6;
+@card-line-padding: 5px;
+@card-line-size: 3px;
 
 .cardPlaceHolder {
   margin:1em * @card-outer-margin;
 }
 
-.cardSize(@card-width-lg, @card-outer-margin);
-
-.task-details game-card{
-  display:block;
-  margin:0 auto;
-}
+.cardSize(@card-width-lg, @card-outer-margin, @card-line-padding, @card-line-size);
 
 game-card {
   font-size:1.2em;
 }
 
-.large {
-  font-size:1.56em;
-}
-
 @card-width-sm: 4.4;
 @media (max-width: 767px){
-  .cardSize(@card-width-sm, @card-outer-margin);
+  .cardSize(@card-width-sm, @card-outer-margin, @card-line-padding, @card-line-size);
+
+  .current-card {
+    .cardSize(@card-width-sm * 1.3, @card-outer-margin, @card-line-padding, @card-line-size);
+  }
+}
+
+.solo-card-container {
+  .cardSize(16, 1.2, 10px, 6px)
 }
