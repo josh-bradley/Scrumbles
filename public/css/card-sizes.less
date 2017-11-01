@@ -1,8 +1,13 @@
 .cardSize(@card-width, @outer-margin, @card-line-padding, @card-line-size){
+  @inner-border-radius:1.4px * @card-width;
+  @outer-border-radius:@inner-border-radius + 5;
   .emptyCard{
     height:@card-width * 1.5em;
     width:1em * @card-width;
     padding: @card-line-padding @card-line-padding + 1 @card-line-padding + 1 @card-line-padding;
+    -moz-border-radius:@outer-border-radius;
+    -webkit-border-radius:@outer-border-radius;
+    border-radius:@outer-border-radius;
   }
 
   .cardNumber {
@@ -16,9 +21,9 @@
   .hasCard .innerCard {
     line-height: @card-width * 1.3em;
     height:100%;
-    -moz-border-radius:5px;
-    -webkit-border-radius:5px;
-    border-radius:5px;
+    -moz-border-radius:@inner-border-radius;
+    -webkit-border-radius:@inner-border-radius;
+    border-radius:@inner-border-radius;
     border: @card-line-size solid whitesmoke;
     box-sizing: border-box;
   }
@@ -49,5 +54,5 @@ game-card {
 }
 
 .solo-card-container {
-  .cardSize(16, 1.2, 10px, 6px)
+  .cardSize(16, 1.8, 15px, 8px)
 }
