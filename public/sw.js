@@ -1,4 +1,4 @@
-var CACHE_NAME = 'scrumbles-v1.0.5';
+var CACHE_NAME = 'scrumbles-v1.0.6';
 var urlsToCache = [
     '/',
     '/css/dest/bootstrap.min.css',
@@ -17,6 +17,19 @@ self.addEventListener('install', function(event) {
                 return cache.addAll(urlsToCache);
             })
     );
+});
+
+self.addEventListener('activate', function(event) {
+  var cacheWhitelist = [CACHE_NAME];
+  event.waitUntil(
+    caches.keys().then(function(keyList) {
+      return Promise.all(keyList.map(function(key) {
+        if (cacheWhitelist.indexOf(key) === -1) {
+          return caches.delete(key);
+        }
+      }));
+    })
+  );
 });
 
 self.addEventListener('fetch', function(event) {
