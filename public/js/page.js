@@ -106,7 +106,7 @@ module.exports = (function(){
         var self = this;
 
         this.me = {};
-        this.cards = ko.observableArray(['0', '1/2', '1', '2', '4', '8', '13', '20', '40', '100', 'C', '?']);
+        this.cards = ko.observableArray(['0', '1/2', '1', '2', '3', '5', '8', '13', '20', '40', '100', '?']);
 
         this.joinRoomViewModel = new JoinRoomViewModel();
         this.room = new Room();
